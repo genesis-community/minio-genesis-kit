@@ -1,6 +1,6 @@
 #!/bin/bash
 shopt -s nullglob
-set -eu
+set -eux
 
 # Genesis Kit `blueprint' Hook
 #
@@ -13,8 +13,7 @@ set -eu
 # zero exit code otherwise).
 
 
-validate_features your-list of-features 
-                  go-here
+validate_features # none
 
 declare -a manifests
 manifests+=( manifests/minio.yml )

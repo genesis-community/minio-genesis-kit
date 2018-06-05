@@ -10,7 +10,16 @@ instance_groups:
     stemcell:  default
     networks:  { name: (( grab params.network || "default" )) }
     vm_type:   (( grab params.vm_type || "default" ))
-
+    jobs:
+    - name: minio-server
+      release: minio
+      templates:
+      - name: minio-server
+      properties:
+        credential:
+          accesskey: (( vault meta.vault "access_token:accesskey" ))
+          secretkey: (( vault meta.vault "access_token:secretkey" ))
+        port: (( grab params.port || 9000 ))
     properties:
       debug: false
 
@@ -29,7 +38,7 @@ stemcells:
     version: (( grab params.stemcell_version || "latest" ))
 
 releases:
-  - name: minio
-    version: (( param "The Kit Author forgot to fill out manifests/minio.yml" ))
-    sha1:    (( param "The Kit Author forgot to fill out manifests/minio.yml" ))
-    url:     (( param "The Kit Author forgot to fill out manifests/minio.yml" ))
+  - name: "minio"
+    version: "2018-04-27T23-33-52Z"
+    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2018-04-27T23-33-52Z"
+    sha1: "b45b8c7790e96d3600f5a61b076f26a703c76953"

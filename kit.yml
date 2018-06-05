@@ -1,8 +1,19 @@
 name:    minio
 version: 0.0.1
-author:  David Lohle <Proplex@users.noreply.github.com>
+author:  David Lohle <dlohle@starkandwayne.com>, Patrick Jones <pjones@starkandwayne.com>
 docs:    https://github.com/cloudfoundry-community/minio-boshrelease
 code:    https://github.com/genesis-community/minio-genesis-kit
 
 # 2.6.0 was our last big feature bump
 genesis_min_version: 2.6.0
+
+description: |
+  This kit creates the manifest to build a Minio, a high performance distributed
+  object storage server.
+
+credentials:
+  base:
+    access_token:
+      accesskey: random 64
+      privatekey: random 64
+
