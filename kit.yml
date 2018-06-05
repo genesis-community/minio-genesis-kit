@@ -15,5 +15,5 @@ credentials:
   base:
     access_token:
       accesskey: random 64
-      privatekey: random 64
+      secretkey: random 64
 

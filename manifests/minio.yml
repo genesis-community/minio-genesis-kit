@@ -8,7 +8,9 @@ instance_groups:
     instances: 1
     azs:       (( grab params.availability_zones || meta.default.azs ))
     stemcell:  default
-    networks:  { name: (( grab params.network || "default" )) }
+    networks:
+      - name: (( grab params.network || "minio"))
+        static_ips: (( static_ips 0 ))
     vm_type:   (( grab params.vm_type || "default" ))
     jobs:
     - name: minio-server
@@ -17,8 +19,8 @@ instance_groups:
       - name: minio-server
       properties:
         credential:
-          accesskey: (( vault meta.vault "access_token:accesskey" ))
-          secretkey: (( vault meta.vault "access_token:secretkey" ))
+          accesskey: (( vault meta.vault "/access_token:accesskey" ))
+          secretkey: (( vault meta.vault "/access_token:secretkey" ))
         port: (( grab params.port || 9000 ))
     properties:
       debug: false
