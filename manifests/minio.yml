@@ -11,7 +11,8 @@ instance_groups:
     networks:
       - name: (( grab params.network || "minio"))
         static_ips: (( static_ips 0 ))
-    vm_type:   (( grab params.vm_type || "default" ))
+    vm_type:   (( grab params.vm_type || "minio" ))
+    persistent_disk_type: (( grab params.persistent_disk_type || "" )) 
     jobs:
     - name: minio-server
       release: minio
