@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eu
+
+list() {
+  echo "The following addons are defined:"
+  echo
+  echo "  list     List out all supported addons."
+  echo
+}
+
+case $GENESIS_ADDON_SCRIPT in
+list)
+  list
+  exit 0
+  ;;
