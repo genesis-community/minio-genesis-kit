@@ -1,9 +1,11 @@
-minio Genesis Kit
+Minio Genesis Kit
 =================
 
-FIXME: The kit author should have filled this in with details about
-what this is, and what it provides. But they have not, and that is sad.
-Perhaps a GitHub issue should be opened to remind them of this?
+The Minio Genesis kit gives you the ability to deploy Minio, a high performance
+distributed object storage server (S3 alternative). 
+
+For more information about Mnio, visit their [Git Repo on
+GitHub](https://github.com/minio/minio) or read their [Docs on Minio.io](https://docs.minio.io/)
 
 Quick Start
 -----------
@@ -28,25 +30,27 @@ provisioning and deploying new environments.
 Features
 -------
 
-FIXME: The kit author should have filled this in with details
-about what features are defined, and how they affect the deployment. But they
-have not, and that is sad. Perhaps a GitHub issue should be opened to remind
-them of this?
+There are no configurable features!
 
 Params
 ------
 
-FIXME: The kit author should have filled this in with details about the params
-present in the base kit, as well as each feature defined. These should likely
-be in different sections (one for base, one per feature). Unfortunately,
-the author has not done this, and that is sad. Perhaps a GitHub issue
-should be opened to remind them of this?
+### General Infrastructure Configuration
+* `minio_disk_type` (default: `minio`) - The `persistent_disk_type` that Minio
+  should use for object storage.
+* `minio_vm_type` (default: `default`) - The `vm_type` that Minio should be
+  deployed on.
+* `stemcell_os` (default: `ubuntu-trusty`) - The operating system stemcell you
+  want to deploy on.
+* `stemcell_version` (default: `latest`) - The specific version of the stemcell
+  you want to deploy on.
+
+### Minio Related Configuration
+* `port` (default: `9000`) -  the port for Minio to listen on
 
 Cloud Config
 ------------
 
-FIXME: The kit author should have filled in this section with details about
-what cloud config definitions this kit expects to see in play and how to
-override them. Also useful are hints at default values for disk + vm sizing,
-scaling considerations, and other miscellaneous IaaS components that the deployment
-might require, like load balancers.
+The Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
+The size for this varies depending on your needs, but Minio themselves recommend
+a minimum of 2GB.
