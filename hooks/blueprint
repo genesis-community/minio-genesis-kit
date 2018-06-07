@@ -29,7 +29,9 @@ for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
 done
 
 if [[ $dist == 'true' ]]; then
+  echo "merging"
   manifests+=( manifests/addons/dist.yml )
 fi
+echo "should have merged"
 
 echo ${manifests[@]}
