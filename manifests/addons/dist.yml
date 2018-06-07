@@ -1,0 +1,51 @@
+---
+meta:
+  default:
+    azs: [z1]
+
+instance_groups:
+  - name:      minio
+    instances: 4
+    azs:       (( grab params.availability_zones || meta.default.azs ))
+    stemcell:  default
+    networks:
+      - name: (( grab params.network || "minio"))
+        static_ips: (( static_ips 0 1 2 3 ))
+    vm_type:   (( grab params.vm_type || "default" ))
+    persistent_disk_type: (( grab params.minio_disk_type || "minio" )) 
+    jobs:
+    - name: minio-server
+      release: minio
+      consumes:
+        minio-server: {from: minio-cluster}
+      provides:
+        minio-server: {as: minio-cluster}
+      templates:
+      - name: minio-server
+      properties:
+        credential:
+          accesskey: (( vault meta.vault "/access_token:accesskey" ))
+          secretkey: (( vault meta.vault "/access_token:secretkey" ))
+        port: (( grab params.port || 9000 ))
+    properties:
+      debug: false
+
+
+update:
+  serial:            false
+  canaries:          1
+  max_in_flight:     1
+  max_errors:        1
+  canary_watch_time: 5000-600000
+  update_watch_time: 5000-600000
+
+stemcells:
+  - alias:   default
+    os:      (( grab params.stemcell_os      || "ubuntu-trusty" ))
+    version: (( grab params.stemcell_version || "latest" ))
+
+releases:
+  - name: "minio"
+    version: "2018-04-27T23-33-52Z"
+    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2018-04-27T23-33-52Z"
+    sha1: "b45b8c7790e96d3600f5a61b076f26a703c76953"

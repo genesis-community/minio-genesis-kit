@@ -6,15 +6,34 @@ set -eu
 # Genesis Kit `new' Hook
 #
 
+prompt_for dist boolean \
+  'Would you like to use a distributed version of Minio?'
+echo "$dist"
+echo "does anything work?"
+
+if [[ $dist == 'true' ]]; then
+cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
+kit:
+  name:    $GENESIS_KIT_NAME
+  version: $GENESIS_KIT_VERSION
+  features:
+    - dist
+params:
+  env:   $GENESIS_ENVIRONMENT
+  vault: $GENESIS_VAULT_PREFIX
+EOF
+else
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 kit:
   name:    $GENESIS_KIT_NAME
   version: $GENESIS_KIT_VERSION
   features:
     - (( replace ))
-
 params:
   env:   $GENESIS_ENVIRONMENT
   vault: $GENESIS_VAULT_PREFIX
 EOF
+fi
+
 exit 0
+

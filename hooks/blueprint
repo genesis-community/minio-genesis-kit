@@ -2,6 +2,8 @@
 shopt -s nullglob
 set -eu
 
+validate_features dist
+
 # Genesis Kit `blueprint' Hook
 #
 # This script outputs the list of merge files needed to support the desired
@@ -13,9 +15,17 @@ set -eu
 # zero exit code otherwise).
 
 
-validate_features #none
-
 declare -a manifests
 manifests+=( manifests/minio.yml )
+for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
+  case $want in
+  dist)
+    manifests=( manifests/addons/$want.yml )
+    ;;
+
+  esac
+done
+
 
 echo ${manifests[@]}
+
