@@ -17,11 +17,11 @@ validate_features #none
 
 declare -a manifests
 manifests+=( manifests/minio.yml )
-echo "$dist"
+echo "$dist" >> log.txt
 for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
   case $want in
   openvpn)
-    echo "merging"
+    echo "merging1" >> log.txt
     manifests+=( manifests/addons/$want.yml )
     ;;
 
@@ -29,9 +29,9 @@ for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
 done
 
 if [[ $dist == 'true' ]]; then
-  echo "merging"
+  echo "merging" >> log.txt
   manifests+=( manifests/addons/dist.yml )
 fi
-echo "should have merged"
+echo "should have merged" >> log.txt
 
 echo ${manifests[@]}
