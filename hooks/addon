@@ -5,92 +5,12 @@ ip=$(exodus ip_address[0])
 user=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)
 pass=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)
 
-get_host_param() {
-  if ! param="$(echo "$exodus_data" | jq -r '."'"${1}"'"' 2>/dev/null)" ; then
-    if [[ -n "$2" ]] ; then echo "$2"; return 0; fi
-    if [[ "$GENESIS_ENVIRONMENT" != "$host_env" ]] ; then
-      error \
-        "#R{[ERROR]} Cannot find '$1' in exodus data for host minio environment" \
-        "        '#C{$host_env}' -- please redeploy it before using this addon."
-    else
-      error \
-        "#R{[ERROR]} Cannot find '$1' in exodus data -- please redeploy this" \
-        "        environment before using this addon."
-    fi
-  fi
-  echo "$param"
-  return 0
-}
-
-
-
 list() {
   echo "The following addons are defined:"
   echo
   echo "  list           List out all supported addons."
-  echo "  visit          Visit the Minio ppage instance."
-  echo "  env            Add the appropriate envars for use with BOSH & 's3'."
-  echo "  download-s3    Download 's3', a CLI tool for interacting with S3 APIs."
+  echo "  visit          Visit the Minio page instance."
   echo
-}
-
-download_s3() {
-  [[ -z "$GENESIS_CALLER_DIR" ]] && error "#R{[ERROR]} Calling scope not found -- internal Genesis error"
-  cd "$GENESIS_CALLER_DIR"
-
-  path=""
-  platform=""
-  sync=""
-  url="$(get_host_param ip_address[0])"
-  while [[ $# -gt 0 ]]; do
-    arg="$1"; shift
-    case "$arg" in
-      "-p") platform="$1"; shift ;;
-      "--sync")
-        [[ -n "$path" ]]             && error "#R{[ERROR]} Can't specify a path and use --sync option"
-        path="$(which s3 2>/dev/null)"
-        sync=1
-        [[ $? -gt 0 || -z "$path" ]] && error "#R{[ERROR]} No s3 found in path -- cannot use --sync option"
-        [[ ! -w "$path" ]]           && error "#R{[ERROR]} No write permission to $path -- cannot use --sync option"
-        ;;
-      "-*")                             error "#R{[ERROR]} Invalid option $arg" ;;
-      *)
-        [[ -n "$sync" ]]             && error "#R{[ERROR]} Can't specify a path and use --sync option"
-        [[ -n "$path" ]]             && error "#R{[ERROR]} Can't specify multiple paths"
-        path="$arg"
-        ;;
-    esac
-  done
-
-  case "${platform:-$OSTYPE}" in 
-    darwin*|mac) platform='darwin' ;;
-    linux*)      platform='linux' ;;
-    cygwin|win*) platform='windows' ;;
-    *)
-      if [[ -n "$platform" ]] ; then
-        error "#R{[ERROR]} Unknown platform type '$platform': expecting one of darwin, linux or windows"
-      else 
-        error "#R{[ERROR]} Cannot determine platform type: please specify one of darwin, linux or" \
-              "        windows using the -t option"
-      fi
-      ;;
-  esac
-
-  [[ -z "$path" ]] && path="."
-  [[ -d "$path" ]] && path="$path/s3"
-
-  url=$(curl -s "https://api.github.com/repos/jhunt/s3/releases/latest" | grep browser_download_url | grep $platform | cut -d '"' -f 4)
-
-      echo ""
-  describe "Downloading #C{$platform/amd64} version of s3 from #C{${url}}..." ""
-  STATUSCODE="$(curl -o "$path" -w "%{http_code}" -Lk "$url")"
-  [[ $? -gt 0 || $STATUSCODE != '200' ]] && error "#R{[ERROR]} Failed to download s3 (Status: $STATUSCODE):" "$(cat $path)"
-  chmod a+x "$path"
-
-      echo
-  describe "#G{Download successful - written to} #C{$path}"
-      echo 
-  exit 0
 }
 
 case $GENESIS_ADDON_SCRIPT in
@@ -98,14 +18,6 @@ list)
   list
   exit 0
   ;;
-
-env)
-  export S3_AKI=user
-  export S3_KEY=pass
-  echo "S3_AKI and S3_KEY are now set."
-  exit 0
-  ;;
-
 
 visit)
   if ! command -v open >/dev/null 2>&1; then
@@ -118,11 +30,6 @@ visit)
   echo -e "  \033[1m\033[1;36m secretkey: \033[0m $pass"
   url="http://$ip:9000"
   open $url
-  exit 0
-  ;;
-
-download-s3)
-  download_s3
   exit 0
   ;;
 
