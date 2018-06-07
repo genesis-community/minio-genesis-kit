@@ -22,7 +22,7 @@ for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
   case $want in
   openvpn)
     echo "merging1" >> log.txt
-    manifests+=( manifests/addons/$want.yml )
+    manifests=( manifests/addons/$want.yml )
     ;;
 
   esac
@@ -30,7 +30,7 @@ done
 
 if [[ $dist == 'true' ]]; then
   echo "merging" >> log.txt
-  manifests+=( manifests/addons/dist.yml )
+  manifests=( manifests/addons/dist.yml )
 fi
 echo "should have merged" >> log.txt
 
