@@ -21,6 +21,7 @@ manifests+=( manifests/minio.yml )
 for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
   case $want in
   openvpn)
+    echo "merging"
     manifests+=( manifests/addons/$want.yml )
     ;;
 
