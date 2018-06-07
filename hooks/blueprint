@@ -18,4 +18,13 @@ validate_features #none
 declare -a manifests
 manifests+=( manifests/minio.yml )
 
+for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
+  case $want in
+  openvpn)
+    manifests+=( manifests/addons/$want.yml )
+    ;;
+
+  esac
+done
+
 echo ${manifests[@]}

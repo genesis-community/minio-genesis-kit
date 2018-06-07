@@ -6,6 +6,9 @@ set -eu
 # Genesis Kit `new' Hook
 #
 
+prompt_for openvpn boolean \
+  'Would you like to use OpenVPN to better control user access?'
+
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 kit:
   name:    $GENESIS_KIT_NAME
