@@ -8,7 +8,7 @@ set -eu
 
 prompt_for dist boolean \
   'Would you like to use a distributed version of Minio?'
-echo ($dist)
+echo "$dist"
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 kit:
   name:    $GENESIS_KIT_NAME

@@ -17,7 +17,7 @@ validate_features #none
 
 declare -a manifests
 manifests+=( manifests/minio.yml )
-echo ($dist)
+echo "$dist"
 for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
   case $want in
   openvpn)
