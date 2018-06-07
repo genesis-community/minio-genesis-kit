@@ -15,6 +15,14 @@ if [[ $GENESIS_DEPLOY_RC == 0 ]]; then
       echo
   describe "  #G{genesis do $GENESIS_ENVIRONMENT -- visit}"
       echo
+      echo "To download s3, a CLI tool used to interact with Minio's S3 APIs:"
+      echo
+  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- download-s3}"
+      echo
+      echo "To setup your environment variables to target this Minio instance:"
+      echo
+  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- env}"
+      echo
   echo "Here's the credentials for your newly deployed Minio server. You can"
   echo "also locate them in the Vault at secret/$GENESIS_VAULT_PREFIX/access_token"
   echo

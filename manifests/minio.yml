@@ -9,7 +9,7 @@ instance_groups:
     azs:       (( grab params.availability_zones || meta.default.azs ))
     stemcell:  default
     networks:
-      - name: (( grab params.network || "minio"))
+      - name: (( grab params.minio_network || "minio"))
         static_ips: (( static_ips 0 ))
     vm_type:   (( grab params.vm_type || "default" ))
     persistent_disk_type: (( grab params.minio_disk_type || "minio" )) 
@@ -41,7 +41,11 @@ stemcells:
     version: (( grab params.stemcell_version || "latest" ))
 
 releases:
+
   - name: "minio"
     version: "2018-04-27T23-33-52Z"
     url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2018-04-27T23-33-52Z"
     sha1: "b45b8c7790e96d3600f5a61b076f26a703c76953"
+
+exodus:
+  ip_address: (( grab instance_groups.minio.networks.0.static_ips))
