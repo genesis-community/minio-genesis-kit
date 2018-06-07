@@ -2,6 +2,8 @@
 shopt -s nullglob
 set -eu
 
+validate_features dist
+
 # Genesis Kit `blueprint' Hook
 #
 # This script outputs the list of merge files needed to support the desired
@@ -13,25 +15,17 @@ set -eu
 # zero exit code otherwise).
 
 
-validate_features #none
-
 declare -a manifests
 manifests+=( manifests/minio.yml )
-echo "$dist" >> log.txt
 for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
   case $want in
-  openvpn)
-    echo "merging1" >> log.txt
+  dist)
     manifests=( manifests/addons/$want.yml )
     ;;
 
   esac
 done
 
-if [[ $dist == 'true' ]]; then
-  echo "merging" >> log.txt
-  manifests=( manifests/addons/dist.yml )
-fi
-echo "should have merged" >> log.txt
 
 echo ${manifests[@]}
+

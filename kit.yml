@@ -1,4 +1,6 @@
 name:    minio
+features:
+  - dist
 version: 0.0.1
 author:  David Lohle <dlohle@starkandwayne.com>, Patrick Jones <pjones@starkandwayne.com>
 docs:    https://github.com/cloudfoundry-community/minio-boshrelease
@@ -11,9 +13,9 @@ description: |
   This kit creates the manifest to build a Minio, a high performance distributed
   object storage server.
 
+
 credentials:
   base:
     access_token:
       accesskey: random 64
       secretkey: random 64
-

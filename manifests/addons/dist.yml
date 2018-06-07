@@ -10,7 +10,7 @@ instance_groups:
     stemcell:  default
     networks:
       - name: (( grab params.network || "minio"))
-        static_ips: (( static_ips 0 ))
+        static_ips: (( static_ips 0 1 2 3 ))
     vm_type:   (( grab params.vm_type || "default" ))
     persistent_disk_type: (( grab params.minio_disk_type || "minio" )) 
     jobs:
