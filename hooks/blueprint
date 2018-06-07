@@ -28,4 +28,8 @@ for want in ${GENESIS_REQUESTED_FEATURES[@]}; do
   esac
 done
 
+if [[ $dist == 'true' ]]; then
+  manifests+=( manifests/addons/dist.yml )
+fi
+
 echo ${manifests[@]}
