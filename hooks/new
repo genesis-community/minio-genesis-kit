@@ -6,8 +6,8 @@ set -eu
 # Genesis Kit `new' Hook
 #
 
-prompt_for openvpn boolean \
-  'Would you like to use OpenVPN to better control user access?'
+prompt_for dist boolean \
+  'Would you like to use a distributed version of Minio?'
 
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 kit:
