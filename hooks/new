@@ -1,20 +1,52 @@
 #!/bin/bash
-shopt -s nullglob
+#shopt -s nullglob
 set -eu
 
 #
 # Genesis Kit `new' Hook
 #
 
+describe "" \
+  "Minio will be running on HTTPS, and as such, needs an SSL cert/key."
+prompt_for ssl_cert_feature "select" \
+  "Do you have an SSL certificate for Minio, or do you need a self-signed cert?" \
+  -o "[provided-cert]I have my own certificate for Minio" \
+  -o "[self-signed-cert]Please have Genesis create a self-signed certificate for Minio"
+features+=("$ssl_cert_feature")
+
+case "$ssl_cert_feature" in
+  "provided-cert")
+    prompt_for "$GENESIS_VAULT_PREFIX/ssl/server:certificate" secret-block \
+      "What is the SSL certificate for Minio?"
+
+    prompt_for "$GENESIS_VAULT_PREFIX/ssl/server:key" secret-block \
+      "What is the SSL key for Minio?"
+    ;;
+esac
+
+
+describe "" \
+  "The external domain for Minio is the DNS entry users will use to access" \
+  "Minio.  You can specify the IP address if you don't have a DNS entry.  Do" \
+  "not include 'https://' in this value."
+prompt_for external_domain line "External Domain or IP:" -i
+
+
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 kit:
   name:    $GENESIS_KIT_NAME
   version: $GENESIS_KIT_VERSION
   features:
-    - (( replace ))
+EOF
+for f in "${features[@]}" ; do
+  printf >>"$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml" -- '    - %s\n' "$f"
+done
 
+cat <<EOF >>$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 params:
   env:   $GENESIS_ENVIRONMENT
   vault: $GENESIS_VAULT_PREFIX
+  external_domain: $external_domain
 EOF
+
 exit 0

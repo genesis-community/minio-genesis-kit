@@ -19,10 +19,10 @@ compatible with Amazon S3 APIs.
   you want to deploy on. (default: `latest`)
 
 ## Minio Related Configuration
-* `port` -  the port for Minio to listen on  (default: `9000`)
+* `port` -  the port for Nginx to listen on (default: `443`)
 
 ## Cloud Config
-he Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
+The Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
 The size for this varies depending on your needs, but Minio themselves recommend
 a minimum of 2GB. Here's an example definition to place in your cloud config:
 ```
@@ -30,6 +30,9 @@ disk_types:
 - disk_size: 2048
   name: minio
 ```
+
+The Minio Genesis Kit also expected a defined `network` named `minio` with at
+least 2 static IPs. 
 
 # Available Addons
 `visit` (macOS only) - Visit the Minio server page, and print the necessary

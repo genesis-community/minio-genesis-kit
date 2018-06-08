@@ -5,5 +5,6 @@ if [[ -n "$GENESIS_CLOUD_CONFIG" ]] ; then
     cloud_config_needs vm_type    $(lookup params.vm_type    default)
     cloud_config_needs network    $(lookup params.network    minio)
     cloud_config_needs disk_type  $(lookup params.minio_disk_type  minio)
+    cloud_config_needs disk_type  $(lookup params.nginx_disk_type  small)
     check_cloud_config && describe "  cloud-config [#G{OK}]"
 fi

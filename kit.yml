@@ -17,3 +17,13 @@ credentials:
       accesskey: random 16
       secretkey: random 32
 
+certificates:
+  self-signed-cert:
+    ssl:
+      ca:
+        valid_for: 5y
+      server:
+        valid_for: 5y
+        names:
+        - "127.0.0.1"
+        - "${params.external_domain}"

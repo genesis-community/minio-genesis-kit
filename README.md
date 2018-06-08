@@ -38,6 +38,8 @@ Params
 ### General Infrastructure Configuration
 * `minio_disk_type` - The `persistent_disk_type` that Minio
   should use for object storage.  (default: `minio`)
+* `nginx_disk_type` - The `persistent_disk_type` that Nginx
+  should use. Keep it really small.  (default: `small`)
 * `vm_type`- The `vm_type` that Minio should be
   deployed on. (default: `default`) 
 * `network` - The `network` that Minio should be
@@ -48,7 +50,7 @@ Params
   you want to deploy on. (default: `latest`)
 
 ### Minio Related Configuration
-* `port` (default: `9000`) -  the port for Minio to listen on
+* `port` -  the port for Nginx to listen on (default: `443`)
 
 Cloud Config
 ------------
@@ -57,5 +59,5 @@ The Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
 The size for this varies depending on your needs, but Minio themselves recommend
 a minimum of 2GB.
 
-The Minio Genesis Kit also expects a defined `network` named `minio` with 1
-static IP allocated.
+The Minio Genesis Kit also expects a defined `network` named `minio` with 2
+static IPs allocated.

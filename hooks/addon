@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-ip=$(exodus ip_address[0])
+url=$(exodus url)
 user=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)
 pass=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)
 
@@ -28,7 +28,6 @@ visit)
   echo
   echo -e "  \033[1m\033[1;36m accesskey: \033[0m $user"
   echo -e "  \033[1m\033[1;36m secretkey: \033[0m $pass"
-  url="http://$ip:9000"
   open $url
   exit 0
   ;;
