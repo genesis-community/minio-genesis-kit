@@ -3,6 +3,7 @@
 The **Vault Genesis Kit** deploys a Minio cloud object storage server. Minio is
 compatible with Amazon S3 APIs.
 
+# Features
 
 # Base Parameters
 
