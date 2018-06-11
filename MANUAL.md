@@ -3,7 +3,6 @@
 The **Vault Genesis Kit** deploys a Minio cloud object storage server. Minio is
 compatible with Amazon S3 APIs.
 
-# Features
 
 # Base Parameters
 
@@ -19,6 +18,11 @@ compatible with Amazon S3 APIs.
 
 ## Minio Related Configuration
 * `port` (default: `9000`) -  the port for Minio to listen on
+
+## Features
+
+# Single Instance vs Distributed
+Minio can be deployed using a single or multiple instances depending on your needs. Upon running `genesis new` you will be prompted for the number of instances you would like to deploy minio over.
 
 ## Cloud Config
 he Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
