@@ -29,4 +29,7 @@ provisioning and deploying new environments.
 
 Learn More
 ----------
-For more in-depth documentation, check out the [manual][MANUAL.md].
+For more in-depth documentation, check out the [manual][1].
+
+
+[1]: MANUAL.md
