@@ -1,3 +1,10 @@
 ---
 exodus:
   self-signed: true
+
+instance_groups:
+  - name: minio
+    jobs:
+    - name: minio-server
+      properties:
+        ca_cert: (( vault meta.vault "/ssl/ca:certificate"))

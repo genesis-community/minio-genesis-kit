@@ -1,6 +1,0 @@
----
-kit:
-  name: dev
-
-params:
-  availability_zones: [z1]

@@ -54,6 +54,8 @@ if [[ $distribute == "true" ]]; then
     "at most 32, and evenly divisable by 2. (e.g. {4,6,8,...,32})"
   ask_for_num_of_nodes
   features+=("distributed")
+else
+  num_minio_nodes=1
 fi
 
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
@@ -73,6 +75,7 @@ params:
   vault: $GENESIS_VAULT_PREFIX
   external_domain: $external_domain
   num_minio_nodes: $num_minio_nodes
+  network: minio
 EOF
 
 exit 0

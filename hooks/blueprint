@@ -22,8 +22,24 @@ if want_feature self-signed-cert ; then
   manifests+=( "manifests/self-signed.yml" )
 fi
 
+if ! want_feature self-signed-cert && ! want_feature provided-cert ; then
+  echo >&2
+  echo >&2 "You must select either 'self-signed-cert' feature, or 'provided-cert'."
+  echo >&2 "Please try running `genesis new` again."
+  echo >&2
+  exit 1
+fi
+
 if want_feature distributed ; then
   manifests+=( "manifests/distributed.yml" )
+  num_nodes=$(lookup params.num_minio_nodes)
+  if (( $num_nodes < 4 || $num_nodes > 32 || $num_nodes % 2 != 0 )) ; then
+    echo >&2
+    echo >&2 "Invalid number of Minio nodes for HA. It must be greater than 4, less"
+    echo >&2 "than 32, and evenly divisible by 2."
+    echo >&2
+    exit 1
+  fi
 fi
 
 echo ${manifests[@]}

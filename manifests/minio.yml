@@ -11,17 +11,34 @@ instance_groups:
     jobs:
     - name: minio-server
       release: minio
+      provides:
+        minio-server: {as: minio-link}
       templates:
       - name: minio-server
       properties:
         server_cert: (( vault meta.vault "/ssl/server:certificate" ))
         server_key: (( vault meta.vault "/ssl/server:key" ))
-        ca_cert: (( vault meta.vault "/ssl/ca:certificate"))
         dns_alias: (( grab meta.default.domain_base ))
         credential: 
           accesskey: (( vault meta.vault "/access_token:accesskey" ))
           secretkey: (( vault meta.vault "/access_token:secretkey" ))
         port: (( grab params.port || 9000 ))
+  - name: tests
+    azs: (( grab params.availability_zones || meta.default.azs ))
+    instances: 1
+    lifecycle: errand
+    post_deploy: true
+    jobs:
+    - name: smoke-tests
+      release: minio
+      templates:
+      - name: smoke-tests
+      consumes:
+        minio: {from: minio-link}
+    networks:
+    - name: (( grab params.network || "minio"))
+    vm_type: (( grab params.vm_type || "default" ))
+    stemcell: default
     properties:
       debug: false 
 
