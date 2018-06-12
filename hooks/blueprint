@@ -13,7 +13,7 @@ set -eu
 # zero exit code otherwise).
 
 
-validate_features self-signed-cert
+validate_features self-signed-cert provided-cert distributed
 
 declare -a manifests
 manifests+=( manifests/minio.yml )
@@ -22,4 +22,9 @@ if want_feature self-signed-cert ; then
   manifests+=( "manifests/self-signed.yml" )
 fi
 
+if want_feature distributed ; then
+  manifests+=( "manifests/distributed.yml" )
+fi
+
 echo ${manifests[@]}
+

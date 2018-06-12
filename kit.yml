@@ -1,4 +1,8 @@
 name:    minio
+features:
+  - self-signed-cert
+  - provided-cert
+  - disributed
 version: 0.0.1
 author:  David Lohle <dlohle@starkandwayne.com>, Patrick Jones <pjones@starkandwayne.com>
 docs:    https://github.com/cloudfoundry-community/minio-boshrelease
@@ -11,11 +15,12 @@ description: |
   This kit creates the manifest to build a Minio, a high performance distributed
   object storage server.
 
+
 credentials:
   base:
     access_token:
-      accesskey: random 16
-      secretkey: random 32
+      accesskey: random 16 fixed
+      secretkey: random 32 fixed
 
 certificates:
   self-signed-cert:
@@ -26,4 +31,5 @@ certificates:
         valid_for: 5y
         names:
         - "127.0.0.1"
+        - "*.minio.${params.network}.${params.env}-minio.bosh"
         - "${params.external_domain}"

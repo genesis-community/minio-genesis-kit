@@ -6,6 +6,17 @@ set -eu
 # Genesis Kit `new' Hook
 #
 
+ask_for_num_of_nodes() {
+  prompt_for num_minio_nodes line \
+    "How many Minio VMs would you like - between 4 and 12?" \
+    -V "4-32" \
+    --default "4"
+  if (( $num_minio_nodes < 4 || $num_minio_nodes % 2 != 0 || $num_minio_nodes > 32 )) ; then
+   ask_for_num_of_nodes
+  fi
+  param_entry params num_minio_nodes
+}
+
 describe "" \
   "Minio will be running on HTTPS, and as such, needs an SSL cert/key."
 prompt_for ssl_cert_feature "select" \
@@ -27,10 +38,23 @@ esac
 
 describe "" \
   "The external domain for Minio is the DNS entry users will use to access" \
-  "Minio.  You can specify the IP address if you don't have a DNS entry.  Do" \
+  "Minio. You can specify the IP address if you don't have a DNS entry. Do" \
   "not include 'https://' in this value."
 prompt_for external_domain line "External Domain or IP:" -i
 
+describe "" \
+  "Would you like to setup a distributed Minio install? This is a RAID-like" \
+  "installation that requires at least 4 Minio instances that replicate data for" \
+  "high-availibility and protection against data rot."
+prompt_for distribute boolean ""
+
+if [[ $distribute == "true" ]]; then
+  describe "" \
+    "How many instances of Minio would you like to deploy? It must be at least 4," \
+    "at most 32, and evenly divisable by 2. (e.g. {4,6,8,...,32})"
+  ask_for_num_of_nodes
+  features+=("distributed")
+fi
 
 cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
 kit:
@@ -38,6 +62,7 @@ kit:
   version: $GENESIS_KIT_VERSION
   features:
 EOF
+
 for f in "${features[@]}" ; do
   printf >>"$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml" -- '    - %s\n' "$f"
 done
@@ -47,6 +72,8 @@ params:
   env:   $GENESIS_ENVIRONMENT
   vault: $GENESIS_VAULT_PREFIX
   external_domain: $external_domain
+  num_minio_nodes: $num_minio_nodes
 EOF
 
 exit 0
+

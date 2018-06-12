@@ -1,0 +1,33 @@
+---
+exodus:
+  dist: true
+
+instance_groups:
+  - name: minio
+    instances: 4
+    azs:       (( grab params.availability_zones || meta.default.azs ))
+    jobs:
+    - name: minio-server
+      release: minio
+      provides:
+        minio-server: {as: minio-link}
+
+  - name: tests
+    azs: (( grab params.availability_zones || meta.default.azs ))
+    instances: 1
+    lifecycle: errand
+    post_deploy: true
+    jobs:
+    - name: smoke-tests
+      release: minio
+      templates:
+      - name: smoke-tests
+      consumes:
+        minio: {from: minio-link}
+    networks:
+    - name: (( grab params.network || "minio"))
+    vm_type: (( grab params.vm_type || "default" ))
+    stemcell: default
+
+
+    
