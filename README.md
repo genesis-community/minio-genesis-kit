@@ -31,14 +31,17 @@ Features
 -------
 
 ### SSL Certificates
-* `self-signed-certs` If you wish to have Genesis generate self-signed certs for
-you.
-* `provided-cert` If you have SSL cert/key to provide.
+* `self-signed-certs` If you wish to have Genesis generate self-signed certs
+  for you.
+* `provided-cert` If you have SSL cert/key to provide, which is grabbed from
+  Vault via path: `$GENESIS_VAULT_PATH/ssl/server:certificate` and 
+  `$GENESIS_VAULT_PATH/ssl/server:key`
 
 
 ### HA
-* `distributed` If you desire to have Minio run in a distributed cluster, increasing
-  your storage as well as protecting against downtime and data rot. Requires the `num_minio_nodes` parameter set
+* `distributed` If you desire to have Minio run in a distributed cluster, 
+  increasing your storage as well as protecting against downtime and data rot. 
+  Requires the `num_minio_nodes` parameter set
 
 
 Params
@@ -70,5 +73,5 @@ The Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
 The size for this varies depending on your needs, but Minio themselves recommend
 a minimum of 2GB.
 
-The Minio Genesis Kit also expects a defined `network` named `minio` with 2
-static IPs allocated.
+The Minio Genesis Kit also expected a defined `network` named `minio` with at 
+least 1 IP, or `num_minio_nodes` IPs.

@@ -1,6 +1,6 @@
-# Vault Genesis Kit Manual
+# Minio Genesis Kit Manual
 
-The **Vault Genesis Kit** deploys a Minio cloud object storage server. Minio is
+The **Minio Genesis Kit** deploys a Minio cloud object storage server. Minio is
 compatible with Amazon S3 APIs.
 
 ## Features
@@ -48,6 +48,9 @@ The Minio Genesis Kit also expected a defined `network` named `minio` with at le
 1 IP, or `num_minio_nodes` IPs.
 
 # Available Addons
-`visit` (macOS only) - Visit the Minio server page, and print the necessary
-login credentials.
-
+* `visit` (macOS only) - Visit the Minio server page, and print the necessary
+  login credentials.
+* `target` - Set the environment variables necessary to target the Minio instance
+  with `s3`
+* `download-s3` - Download [James Hunt's S3 CLI tool](https://github.com/jhunt/s3)
+  for interacting with this Minio instance.
