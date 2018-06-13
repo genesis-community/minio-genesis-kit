@@ -30,16 +30,23 @@ provisioning and deploying new environments.
 Features
 -------
 
-There are no configurable features!
+### SSL Certificates
+* `self-signed-certs` If you wish to have Genesis generate self-signed certs for
+you.
+* `provided-cert` If you have SSL cert/key to provide.
+
+
+### HA
+* `distributed` If you desire to have Minio run in a distributed cluster, increasing
+  your storage as well as protecting against downtime and data rot. Requires the `num_minio_nodes` parameter set
+
 
 Params
 ------
 
 ### General Infrastructure Configuration
-* `minio_disk_type` - The `persistent_disk_type` that Minio
+* `disk_type` - The `persistent_disk_type` that Minio
   should use for object storage.  (default: `minio`)
-* `nginx_disk_type` - The `persistent_disk_type` that Nginx
-  should use. Keep it really small.  (default: `small`)
 * `vm_type`- The `vm_type` that Minio should be
   deployed on. (default: `default`) 
 * `network` - The `network` that Minio should be
@@ -50,7 +57,11 @@ Params
   you want to deploy on. (default: `latest`)
 
 ### Minio Related Configuration
-* `port` -  the port for Nginx to listen on (default: `443`)
+* `port` -  The port for Nginx to listen on (default: `443`)
+* `num_minio_nodes` - The amount of desired Minio nodes in a
+  cluster. (default: `1`, `4` for distributed clusters). If
+  Minio deployment is distributed, value must be greater than
+  4, less than 32, and evenly divisible by 2.
 
 Cloud Config
 ------------

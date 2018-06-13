@@ -10,7 +10,7 @@ list() {
   echo
   echo "  list           List out all supported addons."
   echo "  visit          Visit the Minio ppage instance."
-  echo "  target            Add the appropriate envars for use with BOSH & 's3'."
+  echo "  target         Add the appropriate envars for use with BOSH & 's3'."
   echo "  download-s3    Download 's3', a CLI tool for interacting with S3 APIs."
   echo
 }
