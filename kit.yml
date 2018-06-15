@@ -3,7 +3,7 @@ features:
   - self-signed-cert
   - provided-cert
   - disributed
-version: 0.0.1
+version: 0.1.0
 author:  David Lohle <dlohle@starkandwayne.com>, Patrick Jones <pjones@starkandwayne.com>
 docs:    https://github.com/cloudfoundry-community/minio-boshrelease
 code:    https://github.com/genesis-community/minio-genesis-kit
