@@ -29,7 +29,7 @@ you.
   you want to deploy on. (default: `latest`)
 
 ### Minio Related Configuration
-* `port` -  The port for Nginx to listen on (default: `443`)
+* `port` -  The port for Minio to listen on (default: `443`)
 * `num_minio_nodes` - The amount of desired Minio nodes in a
   cluster. (default: `1`, `4` for distributed clusters). If
   Minio deployment is distributed, value must be greater than
@@ -50,7 +50,6 @@ The Minio Genesis Kit also expected a defined `network` named `minio` with at le
 # Available Addons
 * `visit` (macOS only) - Visit the Minio server page, and print the necessary
   login credentials.
-* `target` - Set the environment variables necessary to target the Minio instance
-  with `s3`
 * `download-s3` - Download [James Hunt's S3 CLI tool](https://github.com/jhunt/s3)
   for interacting with this Minio instance.
+* `s3` - Run `s3` commands with the proper envvars set.

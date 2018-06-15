@@ -2,9 +2,10 @@ name:    minio
 features:
   - self-signed-cert
   - provided-cert
-  - disributed
-version: 0.3.0
-author:  David Lohle <dlohle@starkandwayne.com>, Patrick Jones <pjones@starkandwayne.com>
+  - distributed
+authors:
+  - David Lohle <dlohle@starkandwayne.com>
+  - Patrick Jones <pjones@starkandwayne.com>
 docs:    https://github.com/cloudfoundry-community/minio-boshrelease
 code:    https://github.com/genesis-community/minio-genesis-kit
 

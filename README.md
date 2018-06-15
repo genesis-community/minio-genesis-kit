@@ -60,7 +60,7 @@ Params
   you want to deploy on. (default: `latest`)
 
 ### Minio Related Configuration
-* `port` -  The port for Nginx to listen on (default: `443`)
+* `port` -  The port for Minio to listen on (default: `443`)
 * `num_minio_nodes` - The amount of desired Minio nodes in a
   cluster. (default: `1`, `4` for distributed clusters). If
   Minio deployment is distributed, value must be greater than

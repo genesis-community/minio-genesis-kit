@@ -22,7 +22,7 @@ instance_groups:
         credential: 
           accesskey: (( vault meta.vault "/access_token:accesskey" ))
           secretkey: (( vault meta.vault "/access_token:secretkey" ))
-        port: (( grab params.port || 9000 ))
+        port: (( grab params.port || 443 ))
   - name: tests
     azs: (( grab params.availability_zones || meta.default.azs ))
     instances: 1

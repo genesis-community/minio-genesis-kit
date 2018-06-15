@@ -2,5 +2,9 @@
 * CRITICAL: A distributed Minio manifest would only deploy 1 Minio instance.
 * Fixed a typo in the post-deploy
 
-## Roadmap
-* `s3` needs to be changed to another S3 CLI tool. There exists incompatibilities between `s3` and Minio's S3 API.
+## New Features
+* `s3` addon command, which will automatically set your envvars and run commands
+  against `s3`.
+
+## Changes
+* The default port for Minio is now `443` instead of `9000`
