@@ -45,7 +45,7 @@ $BOSH -d ci-baseline-minio instances --ps
 header "Validating BASELINE minio..."
 bosh -d ci-baseline-minio vms
 IP=$($BOSH -d ci-baseline-minio vms --json | jq -r '.Tables[0].Rows[0].ips')
-curl -Ik https://$IP:9000/minio/health/live
+curl -Ik https://$IP/minio/health/live
 #$BOSH -d ci-baseline-minio run-errand smoke-tests
 cleanup ci-baseline-minio
 
@@ -68,6 +68,6 @@ $BOSH -d ci-dist-minio instances --ps
 header "Validating DISTRIBUTED minio..."
 bosh -d ci-dist-minio vms
 IP=$($BOSH -d ci-dist-minio vms --json | jq -r '.Tables[0].Rows[0].ips')
-curl -Ik https://$IP:9000/minio/health/live
+curl -Ik https://$IP/minio/health/live
 #$BOSH -d ci-dist-minio run-errand smoke-tests
 cleanup ci-dist-minio
