@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-url=$(exodus url)
+minio_url=$(exodus url)
 user=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)
 pass=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)
 
@@ -10,7 +10,7 @@ list() {
   echo
   echo "  list           List out all supported addons."
   echo "  visit          Visit the Minio ppage instance."
-  echo "  target         Add the appropriate envars for use with BOSH & 's3'."
+  echo "  s3             Execute 's3' commands with the appropriate envvars set."
   echo "  download-s3    Download 's3', a CLI tool for interacting with S3 APIs."
   echo
 }
@@ -48,10 +48,10 @@ download_s3() {
     cygwin|win*) platform='windows' ;;
     *)
       if [[ -n "$platform" ]] ; then
-        error "#R{[ERROR]} Unknown platform type '$platform': expecting one of darwin, linux or windows"
+        error "#R{[ERROR]} Unknown platform type '$platform': expecting one of darwin or linux"
       else 
-        error "#R{[ERROR]} Cannot determine platform type: please specify one of darwin, linux or" \
-              "        windows using the -t option"
+        error "#R{[ERROR]} Cannot determine platform type: please specify one of darwin or linux" \
+              "        using the -t option"
       fi
       ;;
   esac
@@ -69,21 +69,19 @@ download_s3() {
 
       echo
   describe "#G{Download successful - written to} #C{$path}"
-      echo 
+      echo
+  describe "To target this Minio instance with 's3', you'll need these envvars:"
+      echo
+      echo "export S3_AKI=$user"
+      echo "export S3_KEY=$pass"
+      echo "export S3_URL=$minio_url"
+      echo
   exit 0
 }
 
 case $GENESIS_ADDON_SCRIPT in
 list)
   list
-  exit 0
-  ;;
-
-target)
-  export S3_AKI=user
-  export S3_KEY=pass
-  export S3_URL=
-  echo "Success!"
   exit 0
   ;;
 
@@ -98,7 +96,7 @@ visit)
   echo -e "  \033[1m\033[1;36m accesskey: \033[0m $user"
   echo -e "  \033[1m\033[1;36m secretkey: \033[0m $pass"
   echo
-  open $url
+  open $minio_url
   exit 0
   ;;
 

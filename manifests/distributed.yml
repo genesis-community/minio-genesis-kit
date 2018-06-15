@@ -1,3 +1,7 @@
 ---
 exodus:
   dist: true
+
+instance_groups:
+  - name:      minio
+    instances: (( grab params.num_minio_nodes || 4 ))

@@ -19,9 +19,9 @@ if [[ $GENESIS_DEPLOY_RC == 0 ]]; then
       echo
   describe "  #G{genesis do $GENESIS_ENVIRONMENT -- download-s3}"
       echo
-      echo "To setup your environment variables to target this Minio instance:"
+      echo "To exec s3 commands with the appropriate envvars set:"
       echo
-  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- target}"=
+  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- s3 <command>}"
 
   echo "Here's the credentials for your newly deployed Minio server. You can"
   echo "also locate them in the Vault at secret/$GENESIS_VAULT_PREFIX/access_token"
