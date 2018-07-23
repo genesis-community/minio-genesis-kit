@@ -33,6 +33,13 @@ fi
 if want_feature distributed ; then
   manifests+=( "manifests/distributed.yml" )
   num_nodes=$(lookup params.num_minio_nodes)
+  if [ -z $num_nodes ] ; then
+    echo >&2
+    echo >&2 "Your manifest is missing num_minio_nodes. Please edit your manifest"
+    echo >&2 "and try again. For more help, please see MANUAL.md"
+    echo >&2
+    exit 1
+  fi
   if (( $num_nodes < 4 || $num_nodes > 32 || $num_nodes % 2 != 0 )) ; then
     echo >&2
     echo >&2 "Invalid number of Minio nodes for HA. It must be greater than 4, less"

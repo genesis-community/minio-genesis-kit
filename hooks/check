@@ -15,6 +15,7 @@ domain="minio.$(lookup params.network minio).$(lookup params.env)-minio.bosh"
 for cert in ssl/server; do
   if ! safe exists "$vault/$cert"; then
     describe "  ❌  $vault/$cert [#Y{MISSING}]"
+    ok=no
   else
     if safe --quiet x509 validate "$vault/$cert" --for "*.$domain" >/dev/null 2>&1; then
       describe "  #G{✔}  $vault/$cert [#G{OK}]"
