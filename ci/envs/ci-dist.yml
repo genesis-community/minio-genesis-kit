@@ -14,4 +14,3 @@ params:
   network: genesis-ci-minio
   external_domain: testland.com
   disk_type: default
-  port: 9000
