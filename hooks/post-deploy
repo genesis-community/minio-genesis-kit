@@ -2,8 +2,6 @@
 set -eu
 
 if [[ $GENESIS_DEPLOY_RC == 0 ]]; then
-  user=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)
-  pass=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)
       echo; echo;
   describe "#M{$GENESIS_ENVIRONMENT} Minio deployed!"
       echo
@@ -22,12 +20,5 @@ if [[ $GENESIS_DEPLOY_RC == 0 ]]; then
       echo "To exec s3 commands with the appropriate envvars set:"
       echo
   describe "  #G{genesis do $GENESIS_ENVIRONMENT -- s3 <command>}"
-
-  echo "Here's the credentials for your newly deployed Minio server. You can"
-  echo "also locate them in the Vault at secret/$GENESIS_VAULT_PREFIX/access_token"
-  echo
-  echo
-  echo -e "  \033[1m\033[1;36m accesskey: \033[0m $user"
-  echo -e "  \033[1m\033[1;36m secretkey: \033[0m $pass"
-  echo
+      echo
 fi
