@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu
+
+vault="secret/$GENESIS_VAULT_PREFIX"
+minio_url=$(exodus url)
+
+describe "#B{Minio Information}"
+    echo
+describe "Minio endpoint"
+describe "  #C{https://$(exodus url)}"
+    echo
+describe "Minio credentials"
+describe "  username: #M{$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)}"
+describe "  password: #G{$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)}"

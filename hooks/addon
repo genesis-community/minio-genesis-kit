@@ -104,11 +104,12 @@ visit)
     echo "The 'visit' addon script only works on macOS, currently."
     exit 1
   fi
-  echo "Here's the credentials you'll need to sign in: "
+  echo "You will need to enter the following credentials once the page opens: "
   echo
   echo -e "  \033[1m\033[1;36m accesskey: \033[0m $user"
   echo -e "  \033[1m\033[1;36m secretkey: \033[0m $pass"
   echo
+  read -n 1 -s -r -p "Press any key to open the web console..."
   open $minio_url
   exit 0
   ;;
