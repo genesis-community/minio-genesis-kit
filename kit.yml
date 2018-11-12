@@ -10,7 +10,7 @@ docs:    https://github.com/cloudfoundry-community/minio-boshrelease
 code:    https://github.com/genesis-community/minio-genesis-kit
 
 # 2.6.0 was our last big feature bump
-genesis_min_version: 2.6.0
+genesis_version_min: 2.6.0
 
 description: |
   This kit creates the manifest to build a Minio, a high performance distributed
