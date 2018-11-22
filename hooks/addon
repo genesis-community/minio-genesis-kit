@@ -10,7 +10,7 @@ list() {
   echo "The following addons are defined:"
   echo
   echo "  list           List out all supported addons."
-  echo "  visit          Visit the Minio ppage instance."
+  echo "  visit          Visit the Minio page instance."
   echo "  s3             Execute 's3' commands with the appropriate envvars set."
   echo "  download-s3    Download 's3', a CLI tool for interacting with S3 APIs."
   echo
