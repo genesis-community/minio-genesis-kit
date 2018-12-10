@@ -3,7 +3,7 @@ instance_groups:
   - name:      minio
     instances: 1
     azs:       (( grab params.availability_zones || meta.default.azs ))
-    stemcell:  default
+    stemcell:  xenial
     networks:
       - name: (( grab params.network || "minio"))
     vm_type:   (( grab params.vm_type || "default" ))
@@ -38,7 +38,7 @@ instance_groups:
     networks:
     - name: (( grab params.network || "minio"))
     vm_type: (( grab params.vm_type || "default" ))
-    stemcell: default
+    stemcell: xenial
     properties:
       debug: false 
 
@@ -51,15 +51,15 @@ update:
   update_watch_time: 5000-600000
 
 stemcells:
-  - alias:   default
-    os:      (( grab params.stemcell_os      || "ubuntu-trusty" ))
+  - alias:   xenial
+    os:      (( grab params.stemcell_os      || "ubuntu-xenial" ))
     version: (( grab params.stemcell_version || "latest" ))
 
 releases:
   - name: "minio"
-    version: "2018-06-08T03-49-38Z"
-    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2018-06-08T03-49-38Z"
-    sha1: "3a5ae84f8b2be9ee640d545c489633e36c0674dd"
+    version: "2018-12-06T01-27-43Z"
+    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2018-12-06T01-27-43Z"
+    sha1: "7e86eb59405fe7c060c8c03353cf9e9fc7fe5691"
 
 meta:
   default:
