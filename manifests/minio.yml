@@ -3,7 +3,7 @@ instance_groups:
   - name:      minio
     instances: 1
     azs:       (( grab params.availability_zones || meta.default.azs ))
-    stemcell:  xenial
+    stemcell:  default
     networks:
       - name: (( grab params.network || "minio"))
     vm_type:   (( grab params.vm_type || "default" ))
@@ -38,7 +38,7 @@ instance_groups:
     networks:
     - name: (( grab params.network || "minio"))
     vm_type: (( grab params.vm_type || "default" ))
-    stemcell: xenial
+    stemcell: default
     properties:
       debug: false 
 
@@ -51,7 +51,7 @@ update:
   update_watch_time: 5000-600000
 
 stemcells:
-  - alias:   xenial
+  - alias:   default
     os:      (( grab params.stemcell_os      || "ubuntu-xenial" ))
     version: (( grab params.stemcell_version || "latest" ))
 
