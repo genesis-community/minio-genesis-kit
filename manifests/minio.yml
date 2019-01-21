@@ -57,9 +57,9 @@ stemcells:
 
 releases:
   - name: "minio"
-    version: "2018-12-06T01-27-43Z"
-    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2018-12-06T01-27-43Z"
-    sha1: "7e86eb59405fe7c060c8c03353cf9e9fc7fe5691"
+    version: "2019-01-16T21-44-08Z"
+    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2019-01-16T21-44-08Z"
+    sha1: "7342523d2eaca268595bca2c25f4230f4977262b"
 
 meta:
   default:
