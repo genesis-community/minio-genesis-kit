@@ -1,15 +1,18 @@
 #!/bin/bash
 
 # Cloud Config checks
+ok=yes
 if [[ -n "$GENESIS_CLOUD_CONFIG" ]] ; then
     cloud_config_needs vm_type    $(lookup params.vm_type    default)
     cloud_config_needs network    $(lookup params.network    minio)
     cloud_config_needs disk_type  $(lookup params.disk_type  minio)
-    check_cloud_config && describe "  cloud-config [#G{OK}]"
+    if check_cloud_config ; then
+      describe "  cloud-config [#G{OK}]"
+    else
+      ok=no
+    fi
 fi
 
-
-ok=yes
 vault="secret/$GENESIS_VAULT_PREFIX"
 domain="minio.$(lookup params.network minio).$(lookup params.env)-minio.bosh"
 for cert in ssl/server; do
