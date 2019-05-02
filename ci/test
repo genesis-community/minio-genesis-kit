@@ -60,7 +60,7 @@ safe cp -rf secret/genesis-ci/static/minio secret/genesis-ci/minio/ci/dist
 safe cp -rf secret/genesis-ci/static/minio secret/genesis-ci/minio/ci/proto
 
 header "Deploying DISTRIBUTED environment to verify functionality..."
-genesis add-secrets ci-dist --vault da-vault
+genesis add-secrets ci-dist
 cat ci-dist.yml
 pwd
 ls
