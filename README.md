@@ -4,7 +4,7 @@ Minio Genesis Kit
 The Minio Genesis kit gives you the ability to deploy Minio, a high performance
 distributed object storage server (S3 alternative). 
 
-For more information about Mnio, visit their [Git Repo on
+For more information about Minio, visit their [Git Repo on
 GitHub](https://github.com/minio/minio) or read their [Docs on Minio.io](https://docs.minio.io/)
 
 Quick Start
