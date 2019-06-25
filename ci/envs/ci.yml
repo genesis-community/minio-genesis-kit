@@ -1,0 +1,7 @@
+---
+kit:
+  name: dev
+
+params:
+  external_domain: testland.com
+  disk_type: default

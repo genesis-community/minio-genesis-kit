@@ -1,16 +1,11 @@
 ---
 kit:
-  name: dev
-  version: latest
   features:
     - self-signed-cert
     - distributed
 
 params:
   env:   ci-dist
-  vault: genesis-ci/minio/ci/baseline
   bosh:  genesis-ci
+
   num_minio_nodes: 4
-  network: genesis-ci-minio
-  external_domain: testland.com
-  disk_type: default
