@@ -6,3 +6,5 @@ kit:
 params:
   env:   ci-baseline
   bosh:  genesis-ci
+
+  network: default
