@@ -1,46 +1,42 @@
 ---
 instance_groups:
-  - name:      minio
-    instances: 1
-    azs:       (( grab params.availability_zones || meta.default.azs ))
-    stemcell:  default
-    networks:
-      - name: (( grab params.network || "minio"))
-    vm_type:   (( grab params.vm_type || "default" ))
-    persistent_disk_type: (( grab params.disk_type || "minio" )) 
-    jobs:
-    - name: minio-server
-      release: minio
-      provides:
-        minio-server: {as: minio-link}
-      templates:
-      - name: minio-server
-      properties:
-        server_cert: (( vault meta.vault "/ssl/server:certificate" ))
-        server_key: (( vault meta.vault "/ssl/server:key" ))
-        dns_alias: (( grab meta.default.domain_base ))
-        credential: 
-          accesskey: (( vault meta.vault "/access_token:accesskey" ))
-          secretkey: (( vault meta.vault "/access_token:secretkey" ))
-        port: (( grab params.port || 443 ))
-  - name: tests
-    azs: (( grab params.availability_zones || meta.default.azs ))
-    instances: 1
-    lifecycle: errand
-    post_deploy: true
-    jobs:
-    - name: smoke-tests
-      release: minio
-      templates:
-      - name: smoke-tests
-      consumes:
-        minio: {from: minio-link}
-    networks:
+- name:      minio
+  instances: 1
+  azs:       (( grab params.availability_zones || meta.default.azs ))
+  stemcell:  default
+  networks:
     - name: (( grab params.network || "minio"))
-    vm_type: (( grab params.vm_type || "default" ))
-    stemcell: default
+  vm_type:   (( grab params.vm_type || "default" ))
+  persistent_disk_type: (( grab params.disk_type || "minio" )) 
+  jobs:
+  - name: minio-server
+    release: minio
+    provides:
+      minio-server: {as: minio-link}
+    properties:
+      server_cert: (( vault meta.vault "/ssl/server:certificate" ))
+      server_key: (( vault meta.vault "/ssl/server:key" ))
+      dns_alias: (( grab meta.default.domain_base ))
+      credential: 
+        accesskey: (( vault meta.vault "/access_token:accesskey" ))
+        secretkey: (( vault meta.vault "/access_token:secretkey" ))
+      port: (( grab params.port || 443 ))
+- name: tests
+  azs: (( grab params.availability_zones || meta.default.azs ))
+  instances: 1
+  lifecycle: errand
+  post_deploy: true
+  jobs:
+  - name: smoke-tests
+    release: minio
+    consumes:
+      minio: {from: minio-link}
     properties:
       debug: false 
+  networks:
+  - name: (( grab params.network || "minio"))
+  vm_type: (( grab params.vm_type || "default" ))
+  stemcell: default
 
 update:
   serial:            false
