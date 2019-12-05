@@ -1,8 +1,4 @@
 name:    minio
-features:
-  - self-signed-cert
-  - provided-cert
-  - distributed
 authors:
   - David Lohle <dlohle@starkandwayne.com>
   - Patrick Jones <pjones@starkandwayne.com>
