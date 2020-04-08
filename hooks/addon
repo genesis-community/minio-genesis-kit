@@ -124,6 +124,7 @@ s3)
   export S3_AKI=$user
   export S3_KEY=$pass
   export S3_URL=$minio_url
+  export S3_USE_PATH=yes
   if [[ $(exodus self-signed) ]]; then
     export S3_INSECURE=1
   fi
