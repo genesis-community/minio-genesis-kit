@@ -1,4 +1,6 @@
 name:    minio
+version: 0.4.2
+
 authors:
   - David Lohle <dlohle@starkandwayne.com>
   - Patrick Jones <pjones@starkandwayne.com>
