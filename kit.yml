@@ -8,7 +8,7 @@ docs:    https://github.com/cloudfoundry-community/minio-boshrelease
 code:    https://github.com/genesis-community/minio-genesis-kit
 
 # 2.6.0 was our last big feature bump
-genesis_version_min: 2.6.0
+genesis_version_min: 2.7.0
 
 description: |
   This kit creates the manifest to build a Minio, a high performance distributed
@@ -27,7 +27,7 @@ certificates:
       ca:
         valid_for: 5y
       server:
-        valid_for: 5y
+        valid_for: 2y
         names:
         - "127.0.0.1"
         - "*.minio.${params.network}.${params.env}-minio.bosh"

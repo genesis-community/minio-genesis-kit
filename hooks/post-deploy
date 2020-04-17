@@ -2,23 +2,24 @@
 set -eu
 
 if [[ $GENESIS_DEPLOY_RC == 0 ]]; then
-      echo; echo;
-  describe "#M{$GENESIS_ENVIRONMENT} Minio deployed!"
-      echo
-      echo "For details about the deployment, run"
-      echo
-  describe "  #G{genesis info $GENESIS_ENVIRONMENT}"
-      echo
-      echo "To visit the Minio page:"
-      echo
-  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- visit}"
-      echo
-      echo "To download s3, a CLI tool used to interact with Minio's S3 APIs:"
-      echo
-  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- download-s3}"
-      echo
-      echo "To exec s3 commands with the appropriate envvars set:"
-      echo
-  describe "  #G{genesis do $GENESIS_ENVIRONMENT -- s3 <command>}"
-      echo
+  describe "" \
+           "" \
+           "#M{$GENESIS_ENVIRONMENT} Minio deployed!" \
+           "" \
+           "For details about the deployment, run" \
+           "" \
+           "  #G{genesis info $GENESIS_ENVIRONMENT}" \
+           "" \
+           "To visit the Minio page:" \
+           "" \
+           "  #G{genesis do $GENESIS_ENVIRONMENT -- visit}" \
+           "" \
+           "To download s3, a CLI tool used to interact with Minio's S3 APIs:" \
+           "" \
+           "  #G{genesis do $GENESIS_ENVIRONMENT -- download-s3}" \
+           "" \
+           "To exec s3 commands with the appropriate envvars set:" \
+           "" \
+           "  #G{genesis do $GENESIS_ENVIRONMENT -- s3 <command>}" \
+           ""
 fi

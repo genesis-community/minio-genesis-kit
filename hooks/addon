@@ -1,10 +1,19 @@
 #!/bin/bash
-set -eu
+set -u
+
+#Version check
+min_version="2.7.0"
+genesis_version="$(genesis -v 2>&1 | grep '^Genesis v' | sed -e 's/Genesis v\(.*\) (.*$/\1/')"
+if ! [[ "$genesis_version" =~ -dev$ ]] && ! new_enough "$genesis_version" "$min_version" ; then
+  describe >&2 "" "#R{[ERROR]} This kit needs Genesis $min_version.  Please upgrade before continuing" ""
+  exit 1
+fi
+set -e
 
 local=0
 minio_url=$(exodus url)
-user=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)
-pass=$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)
+user="$(safe get "${GENESIS_SECRETS_BASE}access_token:accesskey")"
+pass="$(safe get "${GENESIS_SECRETS_BASE}access_token:secretkey")"
 
 list() {
   echo "The following addons are defined:"
@@ -39,7 +48,7 @@ download_s3() {
       "-p") platform="$1"; shift ;;
       "--sync")
         [[ -n "$path" ]]             && error "#R{[ERROR]} Can't specify a path and use --sync option"
-        path="$(which s3 2>/dev/null)"
+        path="$(command -v s3 2>/dev/null)"
         sync=1
         [[ $? -gt 0 || -z "$path" ]] && error "#R{[ERROR]} No s3 found in path -- cannot use --sync option"
         [[ ! -w "$path" ]]           && error "#R{[ERROR]} No write permission to $path -- cannot use --sync option"
@@ -110,20 +119,20 @@ visit)
   echo -e "  \033[1m\033[1;36m secretkey: \033[0m $pass"
   echo
   read -n 1 -s -r -p "Press any key to open the web console..."
-  open $minio_url
+  open "$minio_url"
   exit 0
   ;;
 
 download-s3)
-  download_s3
+  download_s3 "$@"
   exit 0
   ;;
 
 s3)
   needs_s3
-  export S3_AKI=$user
-  export S3_KEY=$pass
-  export S3_URL=$minio_url
+  export S3_AKI="$user"
+  export S3_KEY="$pass"
+  export S3_URL="$minio_url"
   export S3_USE_PATH=yes
   if [[ $(exodus self-signed) ]]; then
     export S3_INSECURE=1
@@ -135,7 +144,7 @@ s3)
     
 
 *)
-  echo "Unknown Minio Genesis Kit command. Try `list` to see what you can do."
+  echo "Unknown Minio Genesis Kit command. Try 'list' to see what you can do."
   exit 1
   ;;
 

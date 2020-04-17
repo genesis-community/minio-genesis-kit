@@ -1,6 +1,15 @@
 #!/bin/bash
 #shopt -s nullglob
-set -eu
+set -u
+
+#Version check
+min_version="2.7.0"
+genesis_version="$(genesis -v 2>&1 | grep '^Genesis v' | sed -e 's/Genesis v\(.*\) (.*$/\1/')"
+if ! [[ "$genesis_version" =~ -dev$ ]] && ! new_enough "$genesis_version" "$min_version" ; then
+  describe >&2 "" "#R{[ERROR]} This kit needs Genesis $min_version.  Please upgrade before continuing" ""
+  exit 1
+fi
+set -e
 
 #
 # Genesis Kit `new' Hook
@@ -11,14 +20,14 @@ ask_for_num_of_nodes() {
     "How many Minio VMs would you like - between 4 and 12?" \
     -V "4-32" \
     --default "4"
-  if (( $num_minio_nodes < 4 || $num_minio_nodes % 2 != 0 || $num_minio_nodes > 32 )) ; then
+  if (( "$num_minio_nodes" < 4 || "$num_minio_nodes" % 2 != 0 || "$num_minio_nodes" > 32 )) ; then
    ask_for_num_of_nodes
   fi
-  param_entry params num_minio_nodes
 }
 
 describe "" \
   "Minio will be running on HTTPS, and as such, needs an SSL cert/key."
+ssl_cert_feature= # assigned in prompt_for below
 prompt_for ssl_cert_feature "select" \
   "Do you have an SSL certificate for Minio, or do you need a self-signed cert?" \
   -o "[provided-cert]I have my own certificate for Minio" \
@@ -27,10 +36,10 @@ features+=("$ssl_cert_feature")
 
 case "$ssl_cert_feature" in
   "provided-cert")
-    prompt_for "$GENESIS_VAULT_PREFIX/ssl/server:certificate" secret-block \
+    prompt_for "ssl/server:certificate" secret-block \
       "What is the SSL certificate for Minio?"
 
-    prompt_for "$GENESIS_VAULT_PREFIX/ssl/server:key" secret-block \
+    prompt_for "ssl/server:key" secret-block \
       "What is the SSL key for Minio?"
     ;;
 esac
@@ -40,15 +49,17 @@ describe "" \
   "The external domain for Minio is the DNS entry users will use to access" \
   "Minio. You can specify the IP address if you don't have a DNS entry. Do" \
   "not include 'https://' in this value."
+external_domain= # assigned in prompt_for below
 prompt_for external_domain line "External Domain or IP:" -i
 
 describe "" \
   "Would you like to setup a distributed Minio install? This is a RAID-like" \
   "installation that requires at least 4 Minio instances that replicate data for" \
   "high-availibility and protection against data rot."
+distribute= # assigned in prompt_for below
 prompt_for distribute boolean ""
 
-if [[ $distribute == "true" ]]; then
+if [[ "$distribute" == "true" ]]; then
   describe "" \
     "How many instances of Minio would you like to deploy? It must be at least 4," \
     "at most 32, and evenly divisable by 2. (e.g. {4,6,8,...,32})"
@@ -58,7 +69,7 @@ else
   num_minio_nodes=1
 fi
 
-cat <<EOF >$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
+cat <<EOF > "$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml"
 kit:
   name:    $GENESIS_KIT_NAME
   version: $GENESIS_KIT_VERSION
@@ -69,13 +80,13 @@ for f in "${features[@]}" ; do
   printf >>"$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml" -- '    - %s\n' "$f"
 done
 
-cat <<EOF >>$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml
+genesis_config_block >> "$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml"
+
+cat <<EOF >> "$GENESIS_ROOT/$GENESIS_ENVIRONMENT.yml"
 params:
-  env:   $GENESIS_ENVIRONMENT
-  vault: $GENESIS_VAULT_PREFIX
   external_domain: $external_domain
   num_minio_nodes: $num_minio_nodes
-  network: minio
+  network:         minio
 EOF
 
 exit 0

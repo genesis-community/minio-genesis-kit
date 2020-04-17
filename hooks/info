@@ -1,8 +1,14 @@
 #!/bin/bash
-set -eu
+set -u
 
-vault="secret/$GENESIS_VAULT_PREFIX"
-minio_url=$(exodus url)
+#Version check
+min_version="2.7.0"
+genesis_version="$(genesis -v 2>&1 | grep '^Genesis v' | sed -e 's/Genesis v\(.*\) (.*$/\1/')"
+if ! [[ "$genesis_version" =~ -dev$ ]] && ! new_enough "$genesis_version" "$min_version" ; then
+  describe >&2 "" "#R{[ERROR]} This kit needs Genesis $min_version.  Please upgrade before continuing" ""
+  exit 1
+fi
+set -e
 
 describe "#B{Minio Information}"
     echo
@@ -10,5 +16,5 @@ describe "Minio endpoint"
 describe "  #C{$(exodus url)}"
     echo
 describe "Minio credentials"
-describe "  username: #M{$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:accesskey)}"
-describe "  password: #G{$(safe get secret/$GENESIS_VAULT_PREFIX/access_token:secretkey)}"
+describe "  username: #M{$(safe get "${GENESIS_SECRETS_BASE}access_token:accesskey")}"
+describe "  password: #G{$(safe get "${GENESIS_SECRETS_BASE}access_token:secretkey")}"
