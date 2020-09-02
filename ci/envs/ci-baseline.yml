@@ -3,8 +3,9 @@ kit:
   features:
     - self-signed-cert
 
-params:
-  env:   ci-baseline
-  bosh:  genesis-ci
+genesis:
+  env: ci-baseline
+  bosh_env:  genesis-ci
 
+params:
   network: default

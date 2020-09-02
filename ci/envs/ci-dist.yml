@@ -4,9 +4,10 @@ kit:
     - self-signed-cert
     - distributed
 
-params:
+genesis:
   env:   ci-dist
-  bosh:  genesis-ci
+  bosh_env:  genesis-ci
 
+params:
   num_minio_nodes: 4
   network: default

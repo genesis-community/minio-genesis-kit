@@ -8,7 +8,6 @@ genesis:
   env:   distributed
 
 params:
-  env: distributed
   network: test-network
   external_domain: testland.com
   num_minio_nodes: 4
