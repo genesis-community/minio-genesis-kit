@@ -1,0 +1,13 @@
+secret/distributed/minio/access_token:
+  accesskey: <!{meta.vault}/access_token:accesskey!>
+  secretkey: <!{meta.vault}/access_token:secretkey!>
+secret/distributed/minio/ssl/ca:
+  certificate: <!{meta.vault}/ssl/ca:certificate!>
+  combined: <!{meta.vault}/ssl/ca:combined!>
+  crl: <!{meta.vault}/ssl/ca:crl!>
+  key: <!{meta.vault}/ssl/ca:key!>
+  serial: <!{meta.vault}/ssl/ca:serial!>
+secret/distributed/minio/ssl/server:
+  certificate: <!{meta.vault}/ssl/server:certificate!>
+  combined: <!{meta.vault}/ssl/server:combined!>
+  key: <!{meta.vault}/ssl/server:key!>

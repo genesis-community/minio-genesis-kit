@@ -1,0 +1,12 @@
+---
+kit:
+  features:
+    - self-signed-cert
+
+genesis:
+  env:   base
+
+params:
+  env: base
+  network: minio
+  external_domain: testland.com

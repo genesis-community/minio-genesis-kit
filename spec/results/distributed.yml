@@ -1,0 +1,68 @@
+exodus:
+  dist: true
+  self-signed: true
+  url: https://testland.com:443
+instance_groups:
+- azs:
+  - z1
+  instances: 4
+  jobs:
+  - name: minio-server
+    properties:
+      ca_cert: <!{meta.vault}/ssl/ca:certificate!>
+      credential:
+        accesskey: <!{meta.vault}/access_token:accesskey!>
+        secretkey: <!{meta.vault}/access_token:secretkey!>
+      dns_alias: minio.test-network.distributed-minio.bosh
+      port: 443
+      server_cert: <!{meta.vault}/ssl/server:certificate!>
+      server_key: <!{meta.vault}/ssl/server:key!>
+    provides:
+      minio-server:
+        as: minio-link
+    release: minio
+    templates:
+    - name: minio-server
+  name: minio
+  networks:
+  - name: test-network
+  persistent_disk_type: minio
+  stemcell: default
+  vm_type: default
+- azs:
+  - z1
+  instances: 1
+  jobs:
+  - consumes:
+      minio:
+        from: minio-link
+    name: smoke-tests
+    release: minio
+    templates:
+    - name: smoke-tests
+  lifecycle: errand
+  name: tests
+  networks:
+  - name: test-network
+  post_deploy: true
+  properties:
+    debug: false
+  stemcell: default
+  vm_type: default
+name: distributed-minio
+releases:
+- name: minio
+  sha1: 36937ff1661ce88ec50f2bf1a311d27824d13fe2
+  url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2020-04-04T05-39-31Z
+  version: 2020-04-04T05-39-31Z
+stemcells:
+- alias: default
+  os: ubuntu-xenial
+  version: latest
+update:
+  canaries: 1
+  canary_watch_time: 5000-600000
+  max_errors: 1
+  max_in_flight: 1
+  serial: false
+  update_watch_time: 5000-600000
