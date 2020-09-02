@@ -64,7 +64,7 @@ releases:
 meta:
   default:
     azs: [z1]
-    domain_base: (( concat "minio." params.network "." params.env "-minio.bosh" ))
+    domain_base: (( concat "minio." params.network "." genesis.env "-minio.bosh" ))
 
 exodus:
   url: (( concat "https://" params.external_domain ":" instance_groups.minio.jobs.minio-server.properties.port ))

@@ -30,5 +30,5 @@ certificates:
         valid_for: 2y
         names:
         - "127.0.0.1"
-        - "*.minio.${params.network}.${params.env}-minio.bosh"
+        - "*.minio.${params.network}.${genesis.env}-minio.bosh"
         - "${params.external_domain}"
