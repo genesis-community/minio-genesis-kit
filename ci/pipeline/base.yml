@@ -78,8 +78,4 @@ groups:
     - minor
   - name: upstream
     jobs:
-    - bpm-release
-    - concourse-release
-    - haproxy-release
-    - postgres-release
-    - slack-notifications-release    
+    - minio-release

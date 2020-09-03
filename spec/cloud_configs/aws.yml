@@ -39,8 +39,6 @@ vm_types:
 disk_types:
 - name: default
   disk_size: 3000
-- name: concourse
-  disk_size: 50_000
 - name: test-disk-type
   disk_size: 50_000
 networks:

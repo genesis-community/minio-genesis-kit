@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/ginkgo"
 )
 
-var _ = Describe("Concourse Kit", func() {
+var _ = Describe("minio Kit", func() {
 	BeforeSuite(func() {
 		_, filename, _, _ := runtime.Caller(0)
 		KitDir, _ = filepath.Abs(filepath.Join(filepath.Dir(filename), "../"))
