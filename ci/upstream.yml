@@ -1,7 +1,0 @@
----
-# This file contains patterns for generating links to upstream release notes,
-# for constituent releases.
-
-core:
-  - name:  minio
-    notes: https://github.com/minio/minio-boshrelease/releases/tag/RELEASE.${version}
