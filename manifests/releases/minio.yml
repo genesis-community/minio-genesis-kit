@@ -1,0 +1,7 @@
+- type: replace
+  path: /releases?/name=minio?
+  value:
+    name: "minio"
+    version: "2020-04-04T05-39-31Z"
+    url: "https://bosh.io/d/github.com/minio/minio-boshrelease?v=2020-04-04T05-39-31Z"
+    sha1: "36937ff1661ce88ec50f2bf1a311d27824d13fe2"

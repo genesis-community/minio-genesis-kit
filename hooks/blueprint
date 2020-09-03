@@ -16,7 +16,8 @@ set -eu
 validate_features self-signed-cert provided-cert distributed
 
 declare -a manifests
-manifests+=( manifests/minio.yml )
+manifests+=( manifests/minio.yml
+             manifests/releases/minio.yml )
 
 if want_feature self-signed-cert ; then
   manifests+=( "manifests/self-signed.yml" )
