@@ -24,7 +24,7 @@ get_release_url() {
     fi
 }
 
-pushd git-latest-tag > /dev/null
+pushd git-ci > /dev/null
 stable_releases=$(get_releases)
 popd > /dev/null
 
