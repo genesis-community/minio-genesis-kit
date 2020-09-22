@@ -2,6 +2,6 @@
   path: /releases?/name=minio?
   value:
     name: minio
-    version: 2020-09-17T04-49-20Z
-    url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2020-09-17T04-49-20Z
-    sha1: 4475cbabca293f25b953ee62ed159cd2ebd3e693
+    version: 2020-09-21T22-31-59Z
+    url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2020-09-21T22-31-59Z
+    sha1: 67d1c12767354063347e1f782b140409eaffaddf
