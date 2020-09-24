@@ -51,9 +51,9 @@ instance_groups:
 name: base-minio
 releases:
 - name: minio
-  sha1: 67d1c12767354063347e1f782b140409eaffaddf
-  url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2020-09-21T22-31-59Z
-  version: 2020-09-21T22-31-59Z
+  sha1: b3f7a092ae0629598afaa57767a52b78d60e5cd5
+  url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2020-09-23T19-18-30Z
+  version: 2020-09-23T19-18-30Z
 stemcells:
 - alias: default
   os: ubuntu-xenial
