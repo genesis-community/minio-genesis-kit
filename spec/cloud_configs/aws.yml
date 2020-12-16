@@ -26,7 +26,7 @@ vm_types:
 - name: small
   cloud_properties:
     instance_type: m2.small
-    ephemeral_disk: {size: 25_000}    
+    ephemeral_disk: {size: 25_000}
 - name: minio
   cloud_properties:
     instance_type: m4.xlarge
@@ -34,10 +34,12 @@ vm_types:
 - name: test-vm-type
   cloud_properties:
     instance_type: m5.xlarge
-    ephemeral_disk: {size: 100_000}   
+    ephemeral_disk: {size: 100_000}
 
 disk_types:
 - name: default
+  disk_size: 3000
+- name: minio
   disk_size: 3000
 - name: test-disk-type
   disk_size: 50_000
