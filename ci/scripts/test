@@ -1,6 +1,5 @@
 #!/bin/bash
 set -eu
-KIT=minio
 
 header() {
 	echo
@@ -16,8 +15,8 @@ cleanup() {
 		$BOSH -n -d "${deployment}" delete-deployment
 
 		for disk in $($BOSH disks --orphaned | grep "${deployment}" | awk '{print $1}'); do
-			echo "  - removing disk $disk"
-			$BOSH -n delete-disk "$disk"
+			echo "  - removing disk ${disk}"
+			$BOSH -n delete-disk "${disk}"
 		done
 	done
 }
@@ -26,33 +25,31 @@ header "Checking previous deployments on ${BOSH_ENVIRONMENT}..."
 $BOSH deployments
 
 header "Cleaning up from any previous deployments (if necessary)..."
-cleanup ci-baseline-${KIT}
-cleanup ci-dist-${KIT}
-safe rm -rf secret/ci/baseline/${KIT}
-safe rm -rf secret/ci/dist/${KIT}
+cleanup ci-baseline-${KIT_SHORTNAME}
+safe rm -rf secret/ci/baseline/${KIT_SHORTNAME}
 
 header "Deploying BASELINE environment to verify functionality..."
 cd dev
 # make sure hooks are executable before screaming at shipit for failing.
-genesis compile-kit --name $KIT -v 9.9.9 --force
+genesis compile-kit --name ${KIT_SHORTNAME} -v 9.9.9 --force
 cd ..
 genesis add-secrets ci-baseline
 genesis deploy -y ci-baseline
-$BOSH -d ci-baseline-${KIT} instances --ps
+$BOSH -d ci-baseline-${KIT_SHORTNAME} instances --ps
 
 header "Validating BASELINE environment..."
-IP=$($BOSH -d ci-baseline-${KIT} vms --json | jq -r '.Tables[0].Rows[0].ips')
+IP=$($BOSH -d ci-baseline-${KIT_SHORTNAME} vms --json | jq -r '.Tables[0].Rows[0].ips')
 curl -Ik https://$IP/minio/health/live
 
-cleanup ci-baseline-${KIT}
+cleanup ci-baseline-${KIT_SHORTNAME}
 
 header "Deploying DISTRIBUTED environment to verify functionality..."
 genesis add-secrets ci-dist
 genesis deploy -y ci-dist
-$BOSH -d ci-dist-${KIT} instances --ps
+$BOSH -d ci-dist-${KIT_SHORTNAME} instances --ps
 
 header "Validating DISTRIBUTED environment..."
-IP=$($BOSH -d ci-dist-${KIT} vms --json | jq -r '.Tables[0].Rows[0].ips')
+IP=$($BOSH -d ci-dist-${KIT_SHORTNAME} vms --json | jq -r '.Tables[0].Rows[0].ips')
 curl -Ik https://$IP/minio/health/live
 
-cleanup ci-dist-${KIT}
+cleanup ci-dist-${KIT_SHORTNAME}

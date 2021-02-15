@@ -70,12 +70,16 @@ groups:
   - name: (( grab meta.pipeline ))
     jobs:
     - spec-tests
+    - spec-check
     - testflight
     - pre
     - rc
     - shipit
-    - major
-    - minor
   - name: upstream
     jobs:
     - minio-release
+  - name: versions
+    jobs:
+    - major
+    - minor
+    - patch

@@ -7,16 +7,16 @@ resource_types:
 resources:
   - name: git
     type: git
-    check_every: 24h
+    check_every: 1h
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))
       private_key: (( grab meta.github.private_key ))
-      ignore_paths: [ci/*]
+      ignore_paths: ["ci/*[^md]"]
 
   - name: git-ci
     type: git
-    check_every: 24h
+    check_every: 1h
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))
@@ -26,7 +26,7 @@ resources:
 
   - name: git-latest-tag
     type: git
-    check_every: 24h
+    check_every: 1h
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))
@@ -59,9 +59,3 @@ resources:
       user:         (( grab meta.github.owner ))
       repository:   (( grab meta.github.repo ))
       access_token: (( grab meta.github.access_token ))
-
-  - name: bosh-release-minio
-    type: bosh-io-release
-    check_every: 24h
-    source:
-      repository: minio/minio-boshrelease
