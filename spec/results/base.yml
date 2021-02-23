@@ -44,8 +44,6 @@ instance_groups:
   networks:
   - name: minio
   post_deploy: true
-  properties:
-    debug: false
   stemcell: default
   vm_type: default
 name: base-minio

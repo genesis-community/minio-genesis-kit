@@ -7,7 +7,7 @@ instance_groups:
     networks:
       - name: (( grab params.network || "minio"))
     vm_type:   (( grab params.vm_type || "default" ))
-    persistent_disk_type: (( grab params.disk_type || "minio" )) 
+    persistent_disk_type: (( grab params.disk_type || "minio" ))
     jobs:
     - name: minio-server
       release: minio
@@ -19,7 +19,7 @@ instance_groups:
         server_cert: (( vault meta.vault "/ssl/server:certificate" ))
         server_key: (( vault meta.vault "/ssl/server:key" ))
         dns_alias: (( grab meta.default.domain_base ))
-        credential: 
+        credential:
           accesskey: (( vault meta.vault "/access_token:accesskey" ))
           secretkey: (( vault meta.vault "/access_token:secretkey" ))
         port: (( grab params.port || 443 ))
@@ -39,8 +39,6 @@ instance_groups:
     - name: (( grab params.network || "minio"))
     vm_type: (( grab params.vm_type || "default" ))
     stemcell: default
-    properties:
-      debug: false 
 
 update:
   serial:            false

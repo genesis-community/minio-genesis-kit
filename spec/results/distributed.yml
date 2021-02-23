@@ -45,8 +45,6 @@ instance_groups:
   networks:
   - name: test-network
   post_deploy: true
-  properties:
-    debug: false
   stemcell: default
   vm_type: default
 name: distributed-minio
