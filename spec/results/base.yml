@@ -1,4 +1,7 @@
 exodus:
+  bosh: base
+  is_director: false
+  use_create_env: false
   self-signed: true
   url: https://testland.com:443
 instance_groups:

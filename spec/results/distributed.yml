@@ -1,4 +1,7 @@
 exodus:
+  bosh: distributed
+  is_director: false
+  use_create_env: false
   dist: true
   self-signed: true
   url: https://testland.com:443
