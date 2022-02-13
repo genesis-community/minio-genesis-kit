@@ -1,10 +1,10 @@
 exodus:
   bosh: distributed
-  is_director: false
-  use_create_env: false
   dist: true
+  is_director: false
   self-signed: true
   url: https://testland.com:443
+  use_create_env: false
 instance_groups:
 - azs:
   - z1
@@ -53,9 +53,9 @@ instance_groups:
 name: distributed-minio
 releases:
 - name: minio
-  sha1: ccb94d8936c59e3acf075a1ace61fa1bc99af964
-  url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2022-01-28T02-28-16Z
-  version: 2022-01-28T02-28-16Z
+  sha1: 52aedcee349cc0f0c887e4542d3b1a23d0aaa13d
+  url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2022-02-12T00-51-25Z
+  version: 2022-02-12T00-51-25Z
 stemcells:
 - alias: default
   os: ubuntu-xenial
