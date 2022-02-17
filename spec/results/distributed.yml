@@ -58,7 +58,7 @@ releases:
   version: 2022-02-12T00-51-25Z
 stemcells:
 - alias: default
-  os: ubuntu-xenial
+  os: ubuntu-bionic
   version: latest
 update:
   canaries: 1

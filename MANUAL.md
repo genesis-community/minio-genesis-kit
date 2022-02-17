@@ -24,7 +24,7 @@ you.
 * `network` - The `network` that Minio should be
   deployed on. (default: `minio`)
 * `stemcell_os` - The operating system stemcell you
-  want to deploy on. (default: `ubuntu-xenial`)
+  want to deploy on. (default: `ubuntu-bionic`)
 * `stemcell_version` - The specific version of the stemcell
   you want to deploy on. (default: `latest`)
 
