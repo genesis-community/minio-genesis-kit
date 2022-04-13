@@ -51,7 +51,6 @@ instance_groups:
   vm_type: default
 name: base-minio
 releases:
-- name: minio
   sha1: 52aedcee349cc0f0c887e4542d3b1a23d0aaa13d
   url: https://bosh.io/d/github.com/minio/minio-boshrelease?v=2022-02-12T00-51-25Z
   version: 2022-02-12T00-51-25Z
