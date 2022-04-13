@@ -1,0 +1,10 @@
+---
+kit:
+  features:
+    - self-signed-cert
+
+genesis:
+  env: ci-vsphere-baseline
+
+params:
+  network: default
