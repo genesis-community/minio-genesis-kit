@@ -11,7 +11,7 @@ Quick Start
 -----------
 
 To use it, you don't even need to clone this repository! Just run
-the following (using Genesis v2):
+the following (using Genesis v2.7.10 or later):
 
 ```
 # create a minio-deployments repo using the latest version of the minio kit
@@ -27,51 +27,87 @@ genesis init --kit minio -d my-minio-configs
 Once created, refer to the deployment repository README for information on
 provisioning and deploying new environments.
 
+For detailed setup instructions, see the [Getting Started Guide](docs/getting-started.md).
+
 Features
 -------
 
 ### SSL Certificates
-* `self-signed-certs` If you wish to have Genesis generate self-signed certs
-  for you.
-* `provided-cert` If you have SSL cert/key to provide, which is grabbed from
-  Vault via path: `$GENESIS_VAULT_PATH/ssl/server:certificate` and 
-  `$GENESIS_VAULT_PATH/ssl/server:key`
+* `self-signed-certs` - Genesis generates self-signed certificates for you.
+  CA certificate is stored at `$GENESIS_VAULT_PREFIX/ssl/ca:certificate`
+* `provided-cert` - Use your own SSL certificate/key pair from Vault:
+  - Certificate: `$GENESIS_VAULT_PREFIX/ssl/server:certificate`
+  - Private Key: `$GENESIS_VAULT_PREFIX/ssl/server:key`
+
+### High Availability
+* `distributed` - Run Minio in a distributed cluster for:
+  - Increased storage capacity
+  - Protection against downtime
+  - Data redundancy and corruption protection
+  - Requires `num_minio_nodes` parameter (4-32, even numbers only)
+
+For detailed feature documentation, see the [Features Guide](docs/features.md).
 
 
-### HA
-* `distributed` If you desire to have Minio run in a distributed cluster, 
-  increasing your storage as well as protecting against downtime and data rot. 
-  Requires the `num_minio_nodes` parameter set
+Parameters
+----------
 
+### Required Parameters
+* `external_domain` - The external domain for accessing Minio (e.g., `minio.example.com`)
 
-Params
-------
+### Infrastructure Configuration
+* `disk_type` - The `persistent_disk_type` for object storage (default: `minio`)
+* `vm_type` - The `vm_type` for Minio instances (default: `default`)
+* `network` - The `network` for deployment (default: `minio`)
+* `stemcell_os` - The OS stemcell to deploy (default: `ubuntu-bionic`)
+* `stemcell_version` - The stemcell version (default: `latest`)
+* `availability_zones` - Override default availability zones for instance groups
 
-### General Infrastructure Configuration
-* `disk_type` - The `persistent_disk_type` that Minio
-  should use for object storage.  (default: `minio`)
-* `vm_type`- The `vm_type` that Minio should be
-  deployed on. (default: `default`) 
-* `network` - The `network` that Minio should be
-  deployed on. (default: `minio`)
-* `stemcell_os` - The operating system stemcell you
-  want to deploy on. (default: `ubuntu-trusty`)
-* `stemcell_version` - The specific version of the stemcell
-  you want to deploy on. (default: `latest`)
+### Minio Configuration
+* `port` - The HTTPS port for Minio (default: `443`)
+* `num_minio_nodes` - Number of nodes in distributed mode:
+  - Default: `1` (single node), `4` (distributed mode)
+  - Must be 4-32 for distributed mode
+  - Must be an even number
 
-### Minio Related Configuration
-* `port` -  The port for Minio to listen on (default: `443`)
-* `num_minio_nodes` - The amount of desired Minio nodes in a
-  cluster. (default: `1`, `4` for distributed clusters). If
-  Minio deployment is distributed, value must be greater than
-  4, less than 32, and evenly divisible by 2.
+For a complete parameter reference, see the [Configuration Guide](docs/configuration.md).
 
 Cloud Config
 ------------
 
-The Minio Genesis Kit expects a defined `persistent_disk_type` named `minio`.
-The size for this varies depending on your needs, but Minio themselves recommend
-a minimum of 2GB.
+The Minio Genesis Kit requires:
 
-The Minio Genesis Kit also expected a defined `network` named `minio` with at 
-least 1 IP, or `num_minio_nodes` IPs.
+1. **Persistent Disk Type** named `minio`:
+   - Minimum size: 2GB (Minio recommendation)
+   - Size based on your storage needs
+   ```yaml
+   disk_types:
+   - disk_size: 10240  # 10GB example
+     name: minio
+   ```
+
+2. **Network** named `minio`:
+   - Single node: At least 1 static IP
+   - Distributed mode: At least `num_minio_nodes` static IPs
+
+3. **VM Type** named `default` (or custom via `vm_type` parameter)
+
+Addons
+------
+
+* `visit` (alias: `open`, `o`) - Open Minio web console and display credentials (macOS only)
+* `s3` - Run s3 CLI commands with proper environment configuration
+* `download-s3` (alias: `ds`) - Download the s3 CLI tool with options:
+  - `-p <platform>` - Specify platform (darwin/linux)
+  - `--sync` - Update existing s3 binary in PATH
+  - Custom download path
+
+Documentation
+-------------
+
+* [Getting Started Guide](docs/getting-started.md) - Quick deployment walkthrough
+* [Configuration Reference](docs/configuration.md) - All parameters explained
+* [Features Documentation](docs/features.md) - Detailed feature descriptions
+* [Operations Guide](docs/operations.md) - Day-to-day management
+* [Troubleshooting](docs/troubleshooting.md) - Common issues and solutions
+* [Security Best Practices](docs/security.md) - Secure deployment guidelines
