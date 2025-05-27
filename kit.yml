@@ -14,6 +14,13 @@ description: |
   This kit creates the manifest to build a Minio, a high performance distributed
   object storage server.
 
+supports:
+- aws
+- azure
+- gcp
+- openstack
+- vsphere
+- stackit
 
 credentials:
   base:
