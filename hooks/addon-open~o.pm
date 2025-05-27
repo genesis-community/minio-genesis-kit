@@ -53,7 +53,7 @@ sub perform {
     bail("Failed to open browser: %s", $out);
   }
 
-  return $self->done(1);
+	return $self->done();
 }
 
 1;

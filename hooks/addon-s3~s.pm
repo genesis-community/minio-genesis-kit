@@ -64,7 +64,7 @@ sub perform {
     bail("Failed to run s3 command: %s", $out);
   }
 
-  return $self->done(1);
+	return $self->done();
 }
 
 1;

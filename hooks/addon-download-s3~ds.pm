@@ -118,7 +118,7 @@ sub perform {
        "\nYou should source this binary in your PATH.\n",
        $path, $user, $pass, $minio_url);
 
-  return $self->done(1);
+	return $self->done();
 }
 
 1;

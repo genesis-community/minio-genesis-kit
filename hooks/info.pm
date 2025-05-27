@@ -42,7 +42,7 @@ sub perform {
        $accesskey,
        $secretkey);
 
-  return $self->done(1);
+  return $self->done();
 }
 
 1;

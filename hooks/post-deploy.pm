@@ -20,32 +20,24 @@ sub perform {
   my ($self) = @_;
 
   if ($self->deploy_successful) {
-    info("\n\n".
-         "#M{$ENV{GENESIS_ENVIRONMENT}} Minio deployed!\n".
-         "\n".
-         "For details about the deployment, run\n".
-         "\n".
-         "  #G{$ENV{GENESIS_CALL_ENV} info}\n".
-         "\n".
-         "To visit the Minio page:\n".
-         "\n".
-         "  #G{$ENV{GENESIS_CALL_ENV} do -- visit}\n".
-         "\n".
-         "To download s3, a CLI tool used to interact with Minio's S3 APIs:\n".
-         "\n".
-         "  #G{$ENV{GENESIS_CALL_ENV} do -- download-s3}\n".
-         "\n".
-         "To exec s3 commands with the appropriate envvars set:\n".
-         "\n".
-         "  #G{$ENV{GENESIS_CALL_ENV} do -- s3 <command>}\n".
-         "\n");
+    info(
+      "\n\n#M{$ENV{GENESIS_ENVIRONMENT}} Minio deployed!\n".
+      "\nFor details about the deployment, run\n".
+      "  #G{$ENV{GENESIS_CALL_ENV} info}\n".
+      "\nTo visit the Minio page:\n".
+      "  #G{$ENV{GENESIS_CALL_ENV} do -- visit}\n".
+      "\nTo download s3, a CLI tool used to interact with Minio's S3 APIs:\n".
+      "  #G{$ENV{GENESIS_CALL_ENV} do -- download-s3}\n".
+      "\nTo exec s3 commands with the appropriate envvars set:\n".
+      "\t#G{$ENV{GENESIS_CALL_ENV} do -- s3 <command>}\n\n".
+    );
   }
 
   # Call parent class methods if needed
   $self->SUPER::perform() if $self->can('SUPER::perform');
 
   # Mark the hook as completed successfully
-  return $self->done(1);
+  return $self->done();
 }
 
 1;
