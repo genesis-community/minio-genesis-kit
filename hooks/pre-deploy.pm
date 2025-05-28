@@ -22,7 +22,7 @@ sub perform {
   # No specific pre-deployment tasks for Minio at this time
   # This is a placeholder for future pre-deployment actions
 
-  return $self->done();
+  return $self->done(1);
 }
 
 1;
