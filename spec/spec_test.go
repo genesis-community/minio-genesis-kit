@@ -6,6 +6,7 @@ import (
 
 	. "github.com/genesis-community/testkit/v2/testing"
 	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 )
 
 var _ = BeforeSuite(func() {
@@ -25,6 +26,18 @@ var _ = Describe("minio Kit", func() {
 			Name:        "distributed",
 			CloudConfig: "aws",
 			CPI:         "aws",
+		})
+		// Genesis wraps long messages to the terminal width, so the matcher
+		// accepts any whitespace between the words.
+		Test(Environment{
+			Name:        "distributed-odd-nodes",
+			CloudConfig: "aws",
+			CPI:         "aws",
+			OutputMatchers: OutputMatchers{
+				GenesisAddSecrets: MatchRegexp(`an\s+even\s+number\s+from\s+4\s+to\s+32`),
+				GenesisCheck:      MatchRegexp(`an\s+even\s+number\s+from\s+4\s+to\s+32`),
+				GenesisManifest:   MatchRegexp(`an\s+even\s+number\s+from\s+4\s+to\s+32`),
+			},
 		})
 	})
 })

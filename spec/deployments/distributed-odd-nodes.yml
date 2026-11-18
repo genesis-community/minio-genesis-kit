@@ -1,0 +1,15 @@
+---
+kit:
+  name:    dev
+  version: latest
+  features:
+    - self-signed-cert
+    - distributed
+
+genesis:
+  env:   distributed-odd-nodes
+
+params:
+  network: test-network
+  external_domain: testland.com
+  num_minio_nodes: 5

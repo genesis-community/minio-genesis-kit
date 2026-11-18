@@ -50,8 +50,8 @@ sub perform {
 		}
 		if ($num_nodes < 4 || $num_nodes > 32 || $num_nodes % 2 != 0) {
 			bail(
-				"Invalid number of Minio nodes for HA. It must be greater than 4, less\n".
-				"than 32, and evenly divisible by 2."
+				"Invalid number of Minio nodes for HA. It must be an even number from\n".
+				"4 to 32."
 			);
 		}
 	}

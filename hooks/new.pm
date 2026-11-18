@@ -110,7 +110,7 @@ sub _ask_for_num_of_nodes {
 
   my $num_minio_nodes;
   prompt_for('num_minio_nodes', 'line',
-    "How many Minio VMs would you like - between 4 and 12?",
+    "How many Minio VMs would you like - an even number from 4 to 32?",
     '-V "4-32"',
     '--default "4"',
     \$num_minio_nodes);
