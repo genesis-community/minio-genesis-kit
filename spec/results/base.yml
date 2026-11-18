@@ -1,8 +1,11 @@
 exodus:
   bosh: base
   features: self-signed-cert
+  iaas: null
   is_director: false
+  scale: null
   self-signed: true
+  services: null
   url: https://testland.com:443
   use_create_env: false
 instance_groups:
