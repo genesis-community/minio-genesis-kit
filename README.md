@@ -59,7 +59,7 @@ Parameters
 * `disk_type` - The `persistent_disk_type` for object storage (default: `minio`)
 * `vm_type` - The `vm_type` for Minio instances (default: `default`)
 * `network` - The `network` for deployment (default: `minio`)
-* `stemcell_os` - The OS stemcell to deploy (default: `ubuntu-bionic`)
+* `stemcell_os` - The OS stemcell to deploy (default: `ubuntu-noble`)
 * `stemcell_version` - The stemcell version (default: `latest`)
 * `availability_zones` - Override default availability zones for instance groups
 

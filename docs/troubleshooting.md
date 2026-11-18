@@ -20,14 +20,14 @@ This guide helps you diagnose and resolve common issues with Minio deployments u
 **Symptoms:**
 ```
 Error: Failed to find stemcells:
-  - Stemcell 'ubuntu-bionic/latest' doesn't exist
+  - Stemcell 'ubuntu-noble/latest' doesn't exist
 ```
 
 **Solutions:**
 1. Upload the required stemcell:
    ```bash
    bosh upload-stemcell --sha1 $SHA1 \
-     https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-bionic-go_agent
+     https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-noble-go_agent
    ```
 
 2. Check available stemcells:

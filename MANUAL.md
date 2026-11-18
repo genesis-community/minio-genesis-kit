@@ -75,9 +75,9 @@ Deploy Minio in distributed mode for high availability and increased storage.
 
 #### `stemcell_os`
 - **Type:** String
-- **Default:** `ubuntu-bionic`
+- **Default:** `ubuntu-noble`
 - **Description:** The operating system for deployment
-- **Options:** `ubuntu-bionic`, `ubuntu-jammy`
+- **Options:** `ubuntu-noble`, `ubuntu-jammy`, `ubuntu-bionic`
 
 #### `stemcell_version`
 - **Type:** String

@@ -488,7 +488,7 @@ bosh -d dev-minio recreate
 
 **1. Upload new stemcell:**
 ```bash
-bosh upload-stemcell https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-bionic-go_agent
+bosh upload-stemcell https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-noble-go_agent
 ```
 
 **2. Update environment file:**

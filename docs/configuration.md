@@ -70,12 +70,12 @@ This document provides a complete reference for all configuration parameters ava
 
 - **Type:** String
 - **Required:** No
-- **Default:** `ubuntu-bionic`
+- **Default:** `ubuntu-noble`
 - **Description:** The operating system for the deployment stemcell
 - **Options:**
-  - `ubuntu-bionic` (recommended)
+  - `ubuntu-noble` (recommended)
   - `ubuntu-jammy`
-  - `ubuntu-trusty` (deprecated)
+  - `ubuntu-bionic`
 - **Notes:** Ensure your BOSH Director has the appropriate stemcell uploaded
 
 ### stemcell_version
